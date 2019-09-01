@@ -16,7 +16,7 @@ fi
 
 function build() {
     # rebuild heckle app
-    docker build -t heckle-$1:$DEV_VERSION $1
+    docker build -t richardholzeis/heckle-$1:$DEV_VERSION $1
 
     # terminate old heckle pod, the deployment will automatically start a new pod.
     kubectl get pods -n heckle --no-headers -o=custom-columns=:metadata.name --selector=app=heckle-$1 | xargs -IPOD kubectl delete  --ignore-not-found=true -n heckle pod POD
@@ -46,5 +46,4 @@ if [ "watch" = $1 ]; then
         if [ 'add' = {{event}} ] || [ 'change' = {{event}} ]; then\
             kubectl cp -n heckle {{changed}} $(kubectl get pods -n heckle --no-headers -o=custom-columns=:metadata.name --selector=app=heckle-$2 --field-selector=status.phase=Running):/usr/src/app/{{changed}}; \
         fi"
-    fi
 fi
