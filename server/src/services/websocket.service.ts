@@ -10,14 +10,12 @@ export class WebsocketService {
         //initialize the WebSocket server instance
         const wss = new WebSocket.Server({ port: 2000 });
         wss.on('connection', (ws: WebSocket) => {
-            console.log('opened connection');
             this.register(ws);
         });
         return this
     }
 
     public register(ws: WebSocket) {
-        console.info('Registering websocket client');
         const client = new WebsocketClient(ws);
         this.clients.push(client);
     }
