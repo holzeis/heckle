@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TalksViewComponent } from './views/talks-view/talks-view.component';
 import { TalkService } from './services/talk.service';
 import { TalkViewComponent } from './talk-view/talk-view.component';
+import { Interceptors } from './interceptors/index';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TalkViewComponent } from './talk-view/talk-view.component';
   providers: [
     WebsocketService,
     AuthenticationService,
-    TalkService
+    TalkService,
+    Interceptors
   ],
   bootstrap: [AppComponent]
 })
