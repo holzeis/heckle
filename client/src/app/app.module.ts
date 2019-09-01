@@ -10,12 +10,15 @@ import { LoginViewComponent } from './views/login-view/login-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-import { TalkViewComponent } from './views/talk-view/talk-view.component';
+import { TalksViewComponent } from './views/talks-view/talks-view.component';
+import { TalkService } from './services/talk.service';
+import { TalkViewComponent } from './talk-view/talk-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginViewComponent,
+    TalksViewComponent,
     TalkViewComponent
   ],
   imports: [
@@ -28,7 +31,8 @@ import { TalkViewComponent } from './views/talk-view/talk-view.component';
   ],
   providers: [
     WebsocketService,
-    AuthenticationService
+    AuthenticationService,
+    TalkService
   ],
   bootstrap: [AppComponent]
 })
