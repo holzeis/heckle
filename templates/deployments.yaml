@@ -19,6 +19,7 @@ spec:
         image: {{ .Values.registry }}heckle-client:{{ .Values.version }}
         ports:
         - containerPort: 4200
+        command: ["npm","run","start:prod"]
         volumeMounts:
         - mountPath: /usr/src/app/src/environments/environment.ts
           name: config

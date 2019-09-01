@@ -1,4 +1,4 @@
-version: latest
+version: v1
 host: holzeis.par01.containers.appdomain.cloud
 ingressSecret: holzeis
 registry: richardholzeis/

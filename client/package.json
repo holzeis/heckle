@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0 --disableHostCheck=true --sourceMap=true",
-    "start:prod": "ng build --prod && cd dist && http-server -c-1 -P 4200 .",
+    "start:prod": "ng build --prod && http-server -p 4200 dist/client",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
