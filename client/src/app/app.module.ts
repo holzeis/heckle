@@ -14,13 +14,15 @@ import { TalksViewComponent } from './views/talks-view/talks-view.component';
 import { TalkService } from './services/talk.service';
 import { TalkViewComponent } from './talk-view/talk-view.component';
 import { Interceptors } from './interceptors/index';
+import { NotFoundComponent } from './views/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginViewComponent,
     TalksViewComponent,
-    TalkViewComponent
+    TalkViewComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
