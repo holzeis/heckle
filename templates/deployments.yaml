@@ -66,4 +66,11 @@ spec:
         - name: COUCHDB_ENDPOINT
           value: {{ .Release.Name }}-couchdb.{{ .Release.Namespace }}
         - name: COUCHDB_PORT
-          value: "5984"  
+          value: "5984"
+        volumeMounts:
+        - mountPath: /config
+          name: config
+      volumes:
+        - name: config
+          configMap:
+            name: heckle-config  
