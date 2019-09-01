@@ -4,12 +4,12 @@ metadata:
   name: ingress
   namespace: {{ .Release.Namespace }}
   annotations:
-    # ingress.bluemix.net/websocket-services: "heckle-server"
+    ingress.bluemix.net/websocket-services: "heckle-server"
 spec:
   {{ if .Values.ingressSecret }}
   tls:
    - hosts:
-    #  - heckle-ws.{{ .Values.host }}
+     - heckle-ws.{{ .Values.host }}
      - heckle.{{ .Values.host }}
      secretName: {{ .Values.ingressSecret }}
   {{ end }}
@@ -21,14 +21,14 @@ spec:
         backend:
           serviceName: heckle-client
           servicePort: 4200
-  #     - path: /api/v1
-  #       backend:
-  #         serviceName: heckle-server
-  #         servicePort: 3000
-  # - host: heckle-ws.{{ .Values.host }}
-  #   http:
-  #     paths:
-  #     - path: /
-  #       backend:
-  #         serviceName: heckle-server
-  #         servicePort: 2000
+      - path: /api/v1
+        backend:
+          serviceName: heckle-server
+          servicePort: 3000
+  - host: heckle-ws.{{ .Values.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: heckle-server
+          servicePort: 2000

@@ -18,7 +18,8 @@ spec:
       - name: heckle-client
         image: {{ .Values.registry }}heckle-client:{{ .Values.version }}
         ports:
-        - containerPort: 4200
+        - name: http
+          containerPort: 4200
         command: ["npm","run","start:prod"]
         volumeMounts:
         - mountPath: /usr/src/app/src/environments/environment.ts
@@ -28,3 +29,27 @@ spec:
       - name: config
         configMap:
           name: heckle-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heckle-server
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: heckle-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: heckle-server
+    spec:
+      containers:
+      - name: heckle-server
+        image: {{ .Values.registry }}heckle-server:{{ .Values.version }}
+        ports:
+        - name: http
+          containerPort: 3000
+        - name: websocket
+          containerPort: 2000
