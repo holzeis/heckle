@@ -4,6 +4,7 @@ metadata:
   name: heckle-config
   namespace: {{ .Release.Namespace }}
 data:
+  accounts.json: {{ .Files.Get "config/accounts.json" | quote }}
   environment.ts: |
     export const environment = {
       production: false,

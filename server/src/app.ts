@@ -10,6 +10,8 @@ import compression = require('compression');
 import { WebsocketService } from './services/websocket.service';
 import { DataService } from './services/data.service';
 import { Heckle } from './models/heckle';
+import { AuthorizationChecker } from './authentication/authorization.checker';
+import { ClientAuthenticator } from './authentication/client.authenticator';
 
 class App {
 
@@ -29,7 +31,8 @@ class App {
             routePrefix: '/api/v1',
             // add all constrollers in folder controllers
             controllers: [__dirname + '/controllers/*.js'],
-            middlewares: [__dirname + '/middleware/*.js']
+            middlewares: [__dirname + '/middleware/*.js'],
+            currentUserChecker: AuthorizationChecker.currentUser,
         });
 
         app.use(compression());
@@ -44,6 +47,7 @@ class App {
             websocketService.send(heckle);
         })
         Container.set(DataService, dataService);
+        Container.set(ClientAuthenticator, new ClientAuthenticator());
 
         app.listen(3000, '0.0.0.0', () => {
             console.info('[App] App listens on port 3000.');
