@@ -8,6 +8,8 @@ import * as cors from 'cors';
 
 import compression = require('compression');
 import { WebsocketService } from './services/websocket.service';
+import { DataService } from './services/data.service';
+import { Heckle } from './models/heckle';
 
 class App {
 
@@ -33,7 +35,15 @@ class App {
         app.use(compression());
 
         console.info('[App] Initializing websocket handler.');
-        Container.set(WebsocketService, new WebsocketService().initialize());
+        const websocketService = new WebsocketService().initialize();
+        Container.set(WebsocketService, websocketService);
+
+        console.info('[App] Initializing data service.');
+        const dataService = await new DataService().initialize();
+        dataService.register((heckle: Heckle) => {
+            websocketService.send(heckle);
+        })
+        Container.set(DataService, dataService);
 
         app.listen(3000, '0.0.0.0', () => {
             console.info('[App] App listens on port 3000.');

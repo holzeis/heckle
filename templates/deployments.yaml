@@ -58,3 +58,12 @@ spec:
           containerPort: 3000
         - name: websocket
           containerPort: 2000
+        env:
+        - name: COUCHDB_ADMIN_USER
+          value: {{ .Values.couchdb.adminUsername }}
+        - name: COUCHDB_ADMIN_PASSWORD
+          value: {{ .Values.couchdb.adminPassword }}
+        - name: COUCHDB_ENDPOINT
+          value: {{ .Release.Name }}-couchdb.{{ .Release.Namespace }}
+        - name: COUCHDB_PORT
+          value: "5984"  

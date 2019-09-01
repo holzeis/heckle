@@ -3,3 +3,16 @@ host: holzeis.par01.containers.appdomain.cloud
 ingressSecret: holzeis
 registry: richardholzeis/
 env: prod
+
+couchdb:
+  clusterSize: 1
+  adminUsername: admin
+  adminPassword: passw0rd
+  cookieAuthSecret: passw0rd
+  allowAdminParty: false
+  createAdminSecret: true
+  persistentVolume:
+    enabled: true
+  initImage:
+    pullPolicy: IfNotPresent
+    tag: 1.28
