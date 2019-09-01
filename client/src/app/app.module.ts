@@ -8,15 +8,15 @@ import { environment } from '../environments/environment';
 import { WebsocketService } from './services/websocket.service';
 import { LoginViewComponent } from './views/login-view/login-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardViewComponent } from './views/dashboard-view/dashboard-view.component';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { TalkViewComponent } from './views/talk-view/talk-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginViewComponent,
-    DashboardViewComponent
+    TalkViewComponent
   ],
   imports: [
     BrowserModule,

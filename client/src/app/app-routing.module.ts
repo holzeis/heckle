@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginViewComponent } from './views/login-view/login-view.component';
 import { AuthGuard } from './guards/auth.guard';
-import { DashboardViewComponent } from './views/dashboard-view/dashboard-view.component';
+import { TalkViewComponent } from './views/talk-view/talk-view.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginViewComponent },
-  { path: '', component: DashboardViewComponent, canActivate: [AuthGuard] }
+  { path: '', component: TalkViewComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
