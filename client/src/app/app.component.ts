@@ -3,6 +3,7 @@ import { WebsocketService } from './services/websocket.service';
 import { Heckle } from './models/heckle';
 import { takeUntil } from 'rxjs/operators';
 import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,13 @@ import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  constructor(private websocketService: WebsocketService) {}
+  public signedIn: boolean;
+
+  constructor(private websocketService: WebsocketService, private authenticationService: AuthenticationService) {}
 
   public ngOnInit() {
+    this.signedIn = this.authenticationService.getToken() ? true : false;
+    this.authenticationService.signedIn.subscribe((signedIn) => this.signedIn = signedIn);
     this.websocketService.openWebSocket();
 
     Notification.requestPermission().then((result) => {
