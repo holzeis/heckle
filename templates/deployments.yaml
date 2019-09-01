@@ -20,11 +20,16 @@ spec:
         ports:
         - name: http
           containerPort: 4200
+        {{ if eq .Values.env "prod" }}
         command: ["npm","run","start:prod"]
+        {{ end }}
         volumeMounts:
         - mountPath: /usr/src/app/src/environments/environment.ts
           name: config
           subPath: environment.ts
+        - mountPath: /usr/src/app/src/environments/environment.prod.ts
+          name: config
+          subPath: environment.prod.ts
       volumes:
       - name: config
         configMap:
