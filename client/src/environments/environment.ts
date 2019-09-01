@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  host: '',
-  api: '',
-  socket: '',
+  host: 'http://heckle.localhost',
+  api: 'api/v1',
+  socket: 'ws://heckle-ws.localhost',
 };
 
 /*
