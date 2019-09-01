@@ -1,0 +1,17 @@
+<div class="container">
+  <form [formGroup]="talkForm">
+    <div class="form-group">
+      <label class="small" for="talk" translate>Title</label>
+      <input class="form-control" formControlName="talk" id="talk" [placeholder]="title">
+    </div>
+    <button class="btn btn-primary btn-block mt-4" (click)="start()" [disabled]="!talkForm.valid">Create Talk</button>
+  </form>
+  <div class="row" *ngIf="talks && talks.length > 0">
+    <div class="col">Title</div>
+    <div class="col">Closed</div>
+  </div>
+  <div class="row" *ngFor="let talk of talks">
+    <div class="col">{{ talk.title }}</div>
+    <div class="col">{{ talk.closed }}</div>
+  </div>
+</div>

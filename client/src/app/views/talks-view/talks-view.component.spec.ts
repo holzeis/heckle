@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TalkViewComponent } from './talk-view.component';
+import { TalksViewComponent } from './talks-view.component';
 
-describe('TalkViewComponent', () => {
-  let component: TalkViewComponent;
-  let fixture: ComponentFixture<TalkViewComponent>;
+describe('TalksViewComponent', () => {
+  let component: TalksViewComponent;
+  let fixture: ComponentFixture<TalksViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TalkViewComponent ]
+      declarations: [ TalksViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TalkViewComponent);
+    fixture = TestBed.createComponent(TalksViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
