@@ -18,7 +18,7 @@ export class TalkController {
 
   @Post('/stop/:talkId')
   public async stop(@Param('talkId') talkId: string): Promise<Talk> {
-      const talk: Talk = await this.dataService.load(talkId);
+      const talk: Talk = await this.dataService.load([Talk.PREFIX, talkId].join('/'));
       talk.closed = true;
       return this.dataService.persist(talk);
   }
@@ -30,6 +30,6 @@ export class TalkController {
 
   @Get('/:talkId')
   public async loadTalk(@Param('talkId') talkId: string): Promise<Talk> {
-    return this.dataService.load(talkId);
+    return this.dataService.load([Talk.PREFIX, talkId].join('/'));
   }
 }

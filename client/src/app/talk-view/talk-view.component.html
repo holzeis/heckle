@@ -1,3 +1,11 @@
-<p>
-  talk-view works!
-</p>
+<nav class="navbar navbar-dark bg-secondary">
+  <a class="btn btn-sm btn-info" routerLink="/">Back</a>
+</nav>
+<div class="container mt-3">
+  <button *ngIf="talk" class="btn btn-primary btn-block mt-4" (click)="stop()" [disabled]="talk.closed">Stop Talk</button>
+  <div class="row mt-2" *ngFor="let heckle of heckles">
+    <div class="col">
+      {{ heckle.date | date: 'hh:mm'}} {{ heckle.message }}
+    </div>
+  </div>
+</div>

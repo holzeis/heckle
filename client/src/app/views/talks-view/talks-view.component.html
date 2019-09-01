@@ -4,7 +4,7 @@
       <label class="small" for="title">Title</label>
       <input class="form-control" formControlName="title" id="title">
     </div>
-    <button class="btn btn-primary btn-block mt-4" (click)="start()" [disabled]="!talkForm.valid">Create Talk</button>
+    <button class="btn btn-primary btn-block mt-4" (click)="start()" [disabled]="!talkForm.valid">Start Talk</button>
   </form>
   <div class="row mt-2" *ngFor="let talk of talks">
     <div class="col">{{ talk.title }}</div>
