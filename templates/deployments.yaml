@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heckle-client
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: heckle-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: heckle-client
+        org: {{ .Release.Namespace }}
+    spec:
+      containers:
+      - name: heckle-client
+        image: {{ .Values.registry }}heckle-client:{{ .Values.version }}
+        ports:
+        - containerPort: 4200
+        volumeMounts:
+        - mountPath: /usr/src/app/src/environments/environment.ts
+          name: config
+          subPath: environment.ts
+      volumes:
+      - name: config
+        configMap:
+          name: heckle-config

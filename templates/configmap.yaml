@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: heckle-config
+  namespace: {{ .Release.Namespace }}
+data:
+  environment.ts: |
+    export const environment = {
+      production: false,
+      host: '{{ if .Values.ingressSecret }}https{{ else }}http{{ end }}://heckle.{{ .Values.host }}',
+      api: '/api/v1',
+      socket: '{{ if .Values.ingressSecret }}wss{{ else }}ws{{ end }}://heckle-ws.{{ .Values.host }}',
+    };
