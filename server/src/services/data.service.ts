@@ -86,12 +86,11 @@ export class DataService {
     public register(onEvent: (heckle: Heckle) => void): void {
         const feed = this.nano.db.use('heckle').follow({ since: 'now', feed: 'continuous', include_docs: true }, () => { /* empty callback */ });
         feed.on('change', (event) => {
-            console.log(JSON.stringify(event));
             // break joined key to partial keys.
             const keys = event.id.split('/');
             // remove asset prefix
             if (keys.shift() === 'heckle') {
-                onEvent(event);
+                onEvent(event.doc);
             }
         });
     }
