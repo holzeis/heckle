@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { WebsocketService } from './services/websocket.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [
+    WebsocketService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

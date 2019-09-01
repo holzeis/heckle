@@ -7,6 +7,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 
 import compression = require('compression');
+import { WebsocketService } from './services/websocket.service';
 
 class App {
 
@@ -30,6 +31,9 @@ class App {
         });
 
         app.use(compression());
+
+        console.info('[App] Initializing websocket handler.');
+        Container.set(WebsocketService, new WebsocketService().initialize());
 
         app.listen(3000, '0.0.0.0', () => {
             console.info('[App] App listens on port 3000.');

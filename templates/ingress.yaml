@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     ingress.bluemix.net/websocket-services: "heckle-server"
+    ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   {{ if .Values.ingressSecret }}
   tls:
