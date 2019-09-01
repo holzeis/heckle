@@ -33,9 +33,7 @@ export class LoginViewComponent implements OnInit {
 
   public login() {
     this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password)
-      .pipe(take(1)).subscribe(
-        () => this.router.navigate([this.returnUrl]),
-        (error: any) => console.error(error));
+      .pipe(take(1)).subscribe(() => this.router.navigate([this.returnUrl]), (error: any) => console.error(error));
   }
 
 }
