@@ -15,6 +15,7 @@ import { TalkService } from './services/talk.service';
 import { TalkViewComponent } from './talk-view/talk-view.component';
 import { Interceptors } from './interceptors/index';
 import { NotFoundComponent } from './views/not-found/not-found.component';
+import { HeckleViewComponent } from './views/heckle-view/heckle-view.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NotFoundComponent } from './views/not-found/not-found.component';
     LoginViewComponent,
     TalksViewComponent,
     TalkViewComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HeckleViewComponent
   ],
   imports: [
     BrowserModule,
