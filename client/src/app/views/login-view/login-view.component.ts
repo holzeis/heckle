@@ -19,8 +19,7 @@ export class LoginViewComponent implements OnInit {
 
   public ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', Validators.required]
     });
 
     if (sessionStorage.getItem(('token'))) {
@@ -32,7 +31,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   public login() {
-    this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password)
+    this.authenticationService.login(this.loginForm.value.email)
       .pipe(take(1)).subscribe(() => this.router.navigate([this.returnUrl]), (error: any) => console.error(error));
   }
 

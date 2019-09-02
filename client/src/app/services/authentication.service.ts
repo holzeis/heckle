@@ -16,10 +16,10 @@ export class AuthenticationService implements OnDestroy {
     this.authenticationUrl = `${environment.host}/${environment.api}`;
   }
 
-  public login(email: string, password: string): Observable<any> {
+  public login(email: string): Observable<any> {
     const url = this.authenticationUrl + '/auth/login';
 
-    return this.httpClient.post<string>(url, { email, password })
+    return this.httpClient.post<string>(url, { email })
       .pipe(map((token: string) => {
         if (!token) {
           // login unsuccessful if there's no token in the response

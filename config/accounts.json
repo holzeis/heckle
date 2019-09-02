@@ -1,13 +1,11 @@
 {
     "richard": {
         "email": "richard.holzeis@gmail.com",
-        "password": "c2NyeXB0AA8AAAAIAAAAARv3E8+sp2KLsi5vntU9ZWxBnXqBIki6sl8SwB1z+D+UhWrxX4RQ1jyIllZm3740WOhE8IsKOMP1NFhRBILKXutQOxjFE6Gw74uJqLWe60R5",
         "firstname": "Richard",
         "lastname": "Holzeis"
     },
     "claus": {
         "email": "clausa@georgelabs.recruitee.com",
-        "password": "c2NyeXB0AA8AAAAIAAAAARv3E8+sp2KLsi5vntU9ZWxBnXqBIki6sl8SwB1z+D+UhWrxX4RQ1jyIllZm3740WOhE8IsKOMP1NFhRBILKXutQOxjFE6Gw74uJqLWe60R5",
         "firstname": "Claus",
         "lastname": "Polanka"
     }
