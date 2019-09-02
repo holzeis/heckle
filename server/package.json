@@ -21,7 +21,6 @@
     "jsonwebtoken": "^8.5.1",
     "nano": "^8.1.0",
     "routing-controllers": "^0.7.7",
-    "scrypt": "^6.0.3",
     "typedi": "^0.8.0",
     "uuid": "^3.3.3",
     "ws": "^7.1.2"
