@@ -1,7 +1,7 @@
 import v4 = require('uuid/v4');
 import { Accounts } from './accounts';
 
-import { Credentials } from '../models/credentials';
+import { Credentials } from '../models/input/credentials';
 import { Configuration } from '../services/configuration';
 
 let jwt = require('jsonwebtoken');

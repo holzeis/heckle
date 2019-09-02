@@ -69,6 +69,18 @@ spec:
           value: {{ .Release.Name }}-couchdb.{{ .Release.Namespace }}
         - name: COUCHDB_PORT
           value: "5984"
+        - name: JSON_WEBTOKEN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: heckle-secret
+              key: jsonWebTokenSecret
+        - name: VAPID_PRIVATE
+          valueFrom:
+            secretKeyRef:
+              name: heckle-secret
+              key: vapidPrivateKey
+        - name: VAPID_PUBLIC
+          value: {{ .Values.vapidPublicKey }}
         volumeMounts:
         - mountPath: /config
           name: config

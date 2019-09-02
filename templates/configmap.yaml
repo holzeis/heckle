@@ -11,6 +11,7 @@ data:
       host: '{{ if .Values.ingressSecret }}https{{ else }}http{{ end }}://heckle.{{ .Values.host }}',
       api: 'api/v1',
       socket: '{{ if .Values.ingressSecret }}wss{{ else }}ws{{ end }}://heckle-ws.{{ .Values.host }}',
+      publicKey: '{{ .Values.vapidPublicKey }}',
     };
   environment.prod.ts: |
     export const environment = {
@@ -18,4 +19,5 @@ data:
       host: '{{ if .Values.ingressSecret }}https{{ else }}http{{ end }}://heckle.{{ .Values.host }}',
       api: 'api/v1',
       socket: '{{ if .Values.ingressSecret }}wss{{ else }}ws{{ end }}://heckle-ws.{{ .Values.host }}',
+      publicKey: '{{ .Values.vapidPublicKey }}',
     };

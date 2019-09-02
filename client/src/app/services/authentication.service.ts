@@ -50,5 +50,9 @@ export class AuthenticationService implements OnDestroy {
     return JSON.parse(sessionStorage.getItem('token'));
   }
 
+  public getSubscription(): PushSubscription {
+    return JSON.parse(sessionStorage.getItem('subscription'));
+  }
+
   public ngOnDestroy() { }
 }

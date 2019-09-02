@@ -12,6 +12,8 @@ import { DataService } from './services/data.service';
 import { Heckle } from './models/heckle';
 import { AuthorizationChecker } from './authentication/authorization.checker';
 import { ClientAuthenticator } from './authentication/client.authenticator';
+import { Configuration } from './services/configuration';
+import * as webpush from 'web-push';
 
 class App {
 
@@ -40,6 +42,12 @@ class App {
         console.info('[App] Initializing websocket handler.');
         const websocketService = new WebsocketService().initialize();
         Container.set(WebsocketService, websocketService);
+
+        webpush.setVapidDetails(
+            'mailto:richard.holzeis@gmail.com',
+            Buffer.from(Configuration.instance().publicKey, 'base64').toString('utf8'),
+            Configuration.instance().privateKey
+        );
 
         console.info('[App] Initializing data service.');
         const dataService = await new DataService().initialize();

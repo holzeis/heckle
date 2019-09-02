@@ -16,8 +16,4 @@ export class Token {
   public getLastname(): string {
     return this.decodedToken ? this.decodedToken.lastname : null;
   }
-
-  public getSocketKey(): string {
-    return this.decodedToken ? this.decodedToken.socketKey : null;
-  }
 }

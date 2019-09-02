@@ -5,8 +5,9 @@ export class Configuration {
     public readonly couchdbEndpoint: string = process.env.COUCHDB_ENDPOINT;
     public readonly couchdbPort: string = process.env.COUCHDB_PORT;
 
-    // TODO: extract to config map
-    public readonly secret: string = 'supersecret';
+    public readonly secret: string = process.env.JSON_WEBTOKEN_SECRET;
+    public readonly privateKey: string = process.env.VAPID_PRIVATE;
+    public readonly publicKey: string = process.env.VAPID_PUBLIC;
 
     private static configuration: Configuration;
     public static instance(): Configuration {

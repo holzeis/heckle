@@ -4,6 +4,7 @@ ingressSecret: holzeis
 registry: richardholzeis/
 env: prod
 pullPolicy: Always
+vapidPublicKey: QkdubDI0N21QdVcxYmhhbnZxeTJFWExWWEFjdFNJQk9lMzNUaURKODlCUzhTcjRBV2NxQ2Nqa3RKOGN1eGxMWnQtblo5bi1POHhwZFRKTVdCVnFZcXNz
 
 couchdb:
   clusterSize: 1

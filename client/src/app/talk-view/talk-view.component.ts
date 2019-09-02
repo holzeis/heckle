@@ -26,26 +26,19 @@ export class TalkViewComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     Notification.requestPermission().then((result) => {
         if (result === 'granted') {
-       this.websocketService.heckles().pipe(takeUntil(componentDestroyed(this))).subscribe((heckle: Heckle) => {
-              if (this.talkId !== heckle.talkId) {
-                return;
-              }
-              let message = heckle.message;
-              if (message.length > 40) {
-                message = heckle.message.substr(0, 40) + '...';
-              }
+       this.websocketService.heckles().pipe(takeUntil(componentDestroyed(this))).subscribe(
+         (heckle: Heckle) => {
+            if (this.talkId !== heckle.talkId) {
+              return;
+            }
 
-              this.heckles.unshift(heckle);
-              const options = {
-                  body: message,
-              };
-              const notification = new Notification('It\'s a hackle', options);
-            });
+            this.heckles.unshift(heckle);
+          });
         }
     });
 
     this.route.params.pipe(take(1)).subscribe((params: Params) => {
-      this.talkId = params['talkId'];
+      this.talkId = params.talkId;
 
       this.talkService.loadTalk(this.talkId).pipe(take(1)).subscribe((talk: Talk) => {
         this.talk = talk;
