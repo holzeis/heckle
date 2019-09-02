@@ -17,7 +17,7 @@ spec:
       containers:
       - name: heckle-client
         image: {{ .Values.registry }}heckle-client:{{ .Values.version }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        imagePullPolicy: {{ .Values.pullPolicy }}
         ports:
         - name: http
           containerPort: 4200
@@ -54,7 +54,7 @@ spec:
       containers:
       - name: heckle-server
         image: {{ .Values.registry }}heckle-server:{{ .Values.version }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        imagePullPolicy: {{ .Values.pullPolicy }}
         ports:
         - name: http
           containerPort: 3000

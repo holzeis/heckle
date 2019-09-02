@@ -3,7 +3,7 @@ host: holzeis.par01.containers.appdomain.cloud
 ingressSecret: holzeis
 registry: richardholzeis/
 env: prod
-imagePullPolicy: Always
+pullPolicy: Always
 
 couchdb:
   clusterSize: 1
