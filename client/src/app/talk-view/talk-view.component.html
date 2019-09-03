@@ -6,7 +6,8 @@
   <h4 class="mt-3">{{ talk.title }}</h4>
   <div class="row mt-2" *ngFor="let heckle of heckles">
     <div class="col text-break">
-      {{ heckle.date | date: 'hh:mm'}} {{ heckle.message }}
+      {{ heckle.attendee.firstname }}, {{ heckle.date | date: 'HH:mm'}}: 
+      {{ heckle.message }}
     </div>
   </div>
 </div>
