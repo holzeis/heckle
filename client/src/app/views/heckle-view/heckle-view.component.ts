@@ -24,11 +24,11 @@ export class HeckleViewComponent implements OnInit {
 
   public ngOnInit() {
     this.heckleForm = this.formBuilder.group({
-      message: ['', Validators.required]
+      message: ['', Validators.required, Validators.maxLength(500)]
     });
 
     this.route.params.pipe(take(1)).subscribe((params: Params) => {
-      this.talkId = params['talkId'];
+      this.talkId = params.talkId;
 
       this.talkService.loadTalk(this.talkId).pipe(take(1)).subscribe((talk: Talk) => {
         this.talk = talk;
