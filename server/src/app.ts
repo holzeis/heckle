@@ -14,6 +14,7 @@ import { AuthorizationChecker } from './authentication/authorization.checker';
 import { ClientAuthenticator } from './authentication/client.authenticator';
 import { Configuration } from './services/configuration';
 import * as webpush from 'web-push';
+import { NotificationService } from './services/notifcation.service';
 
 class App {
 
@@ -56,6 +57,7 @@ class App {
         })
         Container.set(DataService, dataService);
         Container.set(ClientAuthenticator, new ClientAuthenticator());
+        Container.set(NotificationService, new NotificationService());
 
         app.listen(3000, '0.0.0.0', () => {
             console.info('[App] App listens on port 3000.');

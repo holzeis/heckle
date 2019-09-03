@@ -4,34 +4,18 @@ import { DataService } from '../services/data.service';
 import { TokenAuthenticatorMiddleware } from '../middleware/token.authenticator.middleware';
 import { StartTalk } from '../models/input/start.talk';
 import { User } from '../models/user';
-import * as webpush from 'web-push';
+import { NotificationService } from '../services/notifcation.service';
 
 @JsonController('/talk')
 @UseBefore(TokenAuthenticatorMiddleware)
 export class TalkController {
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private notificationService: NotificationService) {}
 
   @Post('/start')
-  public async start(@CurrentUser() user: User, @Body() startTalk: StartTalk): Promise<Talk> {
-    const talk = new Talk(startTalk.title, user);
-    const payload = {
-        "notification": {
-            "title": "Angular News",
-            "body": "Newsletter Available!",
-            "vibrate": [100, 50, 100],
-            "data": {
-                "dateOfArrival": Date.now(),
-                "primaryKey": 1
-            },
-            "actions": [{
-                "action": "explore",
-                "title": "Go to the site"
-            }]
-        }
-    };
-    const result = await webpush.sendNotification(startTalk.subscription, JSON.stringify(payload));
-    console.log(result);
+  public async start(@CurrentUser() presenter: User, @Body() startTalk: StartTalk): Promise<Talk> {
+    const talk = new Talk(startTalk.title, presenter);
+    this.notificationService.register(talk.getId(), presenter.email, startTalk.subscription);
     return this.dataService.persist(talk);
   }
 
@@ -42,6 +26,7 @@ export class TalkController {
         throw new UnauthorizedError();
       }
       talk.closed = true;
+      this.notificationService.unregister(talkId, user.email);
       return this.dataService.persist(talk);
   }
 

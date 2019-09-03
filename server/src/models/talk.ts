@@ -13,4 +13,8 @@ export class Talk implements nano.MaybeDocument{
         this.closed = false;
         this._id = [Talk.PREFIX, v4()].join('/');
     }
+
+    public getId(): string {
+        return this._id.split('/')[1]
+    }
 }
