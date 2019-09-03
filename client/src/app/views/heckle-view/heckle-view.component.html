@@ -8,6 +8,6 @@
   <h4>{{ talk.title }}</h4>
   <form [formGroup]="heckleForm">
     <textarea class="mt-2 form-control input h-75" rows="10" formControlName="message" id="message" type="text"></textarea>
-    <button class="btn btn-primary btn-block mt-4" (click)="heckle()" [disabled]="talk.closed">Heckle Talk</button>
+    <button class="btn btn-primary btn-block mt-4" (click)="heckle()" [disabled]="talk.closed || heckleForm.invalid">Heckle Talk</button>
   </form>
 </div>
