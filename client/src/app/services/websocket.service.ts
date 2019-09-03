@@ -3,8 +3,8 @@ import { Subject, Observer, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { Heckle } from '../models/heckle';
 import { environment } from 'src/environments/environment';
+import { Update } from '../models/input/update';
 
 
 @Injectable({providedIn: 'root'})
@@ -13,7 +13,7 @@ export class WebsocketService implements OnDestroy {
     private socket: WebSocket;
     private subject: Subject<MessageEvent>;
 
-    private heckle: Subject<Heckle> = new Subject<Heckle>();
+    private heckle: Subject<Update> = new Subject<Update>();
 
     public openWebSocket(retry = false, count = 0) {
         // connect to web socket.
@@ -65,7 +65,7 @@ export class WebsocketService implements OnDestroy {
             (error) => console.error('Failed to connect to the server.'));
     }
 
-    public heckles(): Observable<Heckle> {
+    public updates(): Observable<Update> {
         return this.heckle.asObservable();
     }
 

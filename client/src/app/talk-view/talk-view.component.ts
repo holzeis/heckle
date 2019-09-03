@@ -8,6 +8,7 @@ import { HeckleService } from '../services/heckle.service';
 import { takeUntil } from 'rxjs/operators';
 import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { WebsocketService } from '../services/websocket.service';
+import { Update } from '../models/input/update';
 
 @Component({
   selector: 'app-talk-view',
@@ -24,16 +25,23 @@ export class TalkViewComponent implements OnInit, OnDestroy {
             , private route: ActivatedRoute) { }
 
   public ngOnInit() {
-    Notification.requestPermission().then((result) => {
-        if (result === 'granted') {
-       this.websocketService.heckles().pipe(takeUntil(componentDestroyed(this))).subscribe(
-         (heckle: Heckle) => {
+    this.websocketService.updates().pipe(takeUntil(componentDestroyed(this))).subscribe(
+      (update: Update) => {
+        switch (update.prefix) {
+          case Heckle.PREFIX: {
+            const heckle: Heckle = update.data;
             if (this.talkId !== heckle.talkId) {
               return;
             }
-
             this.heckles.unshift(heckle);
-          });
+          } break;
+          case Talk.PREFIX: {
+            const heckle: Heckle = update.data;
+            if (this.talkId !== heckle.talkId) {
+              return;
+            }
+            this.talk = update.data;
+          } break;
         }
     });
 

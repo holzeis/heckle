@@ -15,6 +15,7 @@ import { ClientAuthenticator } from './authentication/client.authenticator';
 import { Configuration } from './services/configuration';
 import * as webpush from 'web-push';
 import { NotificationService } from './services/notifcation.service';
+import { Update } from './models/input/update';
 
 class App {
 
@@ -52,8 +53,8 @@ class App {
 
         console.info('[App] Initializing data service.');
         const dataService = await new DataService().initialize();
-        dataService.register((heckle: Heckle) => {
-            websocketService.send(heckle);
+        dataService.register((update: Update) => {
+            websocketService.send(update);
         })
         Container.set(DataService, dataService);
         Container.set(ClientAuthenticator, new ClientAuthenticator());

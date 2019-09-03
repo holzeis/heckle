@@ -1,6 +1,5 @@
 import * as WebSocket from 'ws';
-
-import { Heckle } from '../models/heckle';
+import { Update } from '../models/input/update';
 
 export class WebsocketService {
 
@@ -21,14 +20,13 @@ export class WebsocketService {
     }
 
     
-    public send(heckle: Heckle) {
+    public send(update: Update) {
         // removed closed connections.
         this.clients = this.clients.filter((client) => client.ws.readyState !== WebSocket.CLOSED);
 
-        // send notification to all registered websocket clients.
-        console.debug('Sending heckle to websocket clients');
+        // send update to all registered websocket clients.
         this.clients.forEach(client => {
-            client.send(heckle);
+            client.send(update);
         });
     }
 }
@@ -39,10 +37,10 @@ class WebsocketClient {
         ws.on('close', () => console.info('Websocket client closed the connection.'));
     }
 
-    public send(heckle: Heckle) {
+    public send(update: Update) {
         if (this.ws.readyState === WebSocket.OPEN) {
             // only send notification if connection is still open.
-            this.ws.send(JSON.stringify(heckle));
+            this.ws.send(JSON.stringify(update));
         }
     }
 }

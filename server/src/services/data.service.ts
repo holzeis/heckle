@@ -1,6 +1,6 @@
 import { Configuration } from './configuration';
 import * as Nano from 'nano';
-import { Heckle } from '../models/heckle';
+import { Update } from '../models/input/update';
 
 export class DataService {
 
@@ -83,15 +83,8 @@ export class DataService {
      * Register on change events on the couch db.
      * @param onEvent
      */
-    public register(onEvent: (heckle: Heckle) => void): void {
+    public register(onEvent: (update: Update) => void): void {
         const feed = this.nano.db.use('heckle').follow({ since: 'now', feed: 'continuous', include_docs: true }, () => { /* empty callback */ });
-        feed.on('change', (event) => {
-            // break joined key to partial keys.
-            const keys = event.id.split('/');
-            // remove asset prefix
-            if (keys.shift() === 'heckle') {
-                onEvent(event.doc);
-            }
-        });
+        feed.on('change', (event) => onEvent(new Update(event.id.split('/').shift(), event.doc)));
     }
 }
