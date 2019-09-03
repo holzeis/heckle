@@ -30,6 +30,7 @@ export class TalksViewComponent implements OnInit {
   public start() {
     this.talkService.start(this.talkForm.value.title).subscribe((talk: Talk) => {
       this.talks.push(talk);
+      this.router.navigate(talk._id.split('/'));
     }, (error) => console.error(error));
   }
 
