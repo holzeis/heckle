@@ -9,4 +9,5 @@ export class Talk {
     public title: string;
     public closed: boolean;
     public user: User;
+    public date: Date;
 }

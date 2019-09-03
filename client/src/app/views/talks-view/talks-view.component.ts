@@ -29,7 +29,7 @@ export class TalksViewComponent implements OnInit, OnDestroy {
     });
 
     this.talkService.loadTalks().pipe(take(1)).subscribe((talks: Talk[]) => {
-      this.talks = talks;
+      this.talks = talks.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? -1 : 1);
     }, (error) => console.error(error));
   }
 
