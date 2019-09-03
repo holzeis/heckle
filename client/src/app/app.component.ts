@@ -39,9 +39,24 @@ export class AppComponent implements OnInit {
   }
 
   private async subscribe() {
-    const subscription: PushSubscription = await this.swPush.requestSubscription({
+    if (!this.swPush.isEnabled)  {
+      return;
+    }
+
+    this.swPush.notificationClicks.subscribe((payload: any) => {
+        const url = `${environment.host}/talk/${payload.notification.data.talkId}`;
+        window.open(url);
+      });
+
+    this.swPush.subscription.subscribe(async (subscription: PushSubscription) => {
+      if (!subscription) {
+        // register if subscription is not existing.
+        subscription = await this.swPush.requestSubscription({
           serverPublicKey: atob(environment.publicKey)
+        });
+      }
+
+      sessionStorage.setItem('subscription', JSON.stringify(subscription));
     });
-    sessionStorage.setItem('subscription', JSON.stringify(subscription));
   }
 }

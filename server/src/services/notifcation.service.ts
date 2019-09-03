@@ -1,7 +1,5 @@
 import { PushSubscription } from 'web-push';
 import * as webpush from 'web-push';
-import { Heckle } from '../models/heckle';
-
 
 export class NotificationService {
 
@@ -21,7 +19,10 @@ export class NotificationService {
         const payload = {
             "notification": {
                 "title": title,
-                "body": message
+                "body": message,
+                "data": {
+                    "talkId": talkId
+                }
             }
         };
 
