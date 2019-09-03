@@ -24,7 +24,7 @@ export class HeckleViewComponent implements OnInit {
 
   public ngOnInit() {
     this.heckleForm = this.formBuilder.group({
-      message: ['', Validators.required, Validators.maxLength(500)]
+      message: ['', [Validators.required, Validators.maxLength(500)]]
     });
 
     this.route.params.pipe(take(1)).subscribe((params: Params) => {
@@ -39,6 +39,7 @@ export class HeckleViewComponent implements OnInit {
   public heckle() {
     this.heckleService.heckle(this.talkId, this.heckleForm.value.message).subscribe((heckle: Heckle) => {
       console.log('Successfully heckled!');
+      this.heckleForm.reset();
     }, (error) => console.error(error));
   }
 
