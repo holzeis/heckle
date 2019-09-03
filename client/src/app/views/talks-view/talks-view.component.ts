@@ -1,23 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Talk } from '../../models/talk';
 import { TalkService } from '../../services/talk.service';
-import { take } from 'rxjs/operators';
+import { take, takeUntil, filter, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WebsocketService } from '../../services/websocket.service';
+import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'app-talks-view',
   templateUrl: './talks-view.component.html',
   styleUrls: ['./talks-view.component.scss']
 })
-export class TalksViewComponent implements OnInit {
+export class TalksViewComponent implements OnInit, OnDestroy {
 
   public talkForm: FormGroup;
   public talks: Talk[] = [];
 
-  constructor(private talkService: TalkService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private talkService: TalkService, private router: Router, private formBuilder: FormBuilder
+            , private websocketService: WebsocketService) { }
 
   public ngOnInit() {
+    this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Talk.PREFIX)
+      , map(u => u.data)).subscribe((talk: Talk) => this.talks.unshift(talk));
+
     this.talkForm = this.formBuilder.group({
       title: ['', Validators.required]
     });
@@ -41,5 +47,7 @@ export class TalksViewComponent implements OnInit {
   public heckle(talk: Talk) {
     this.router.navigate(['heckle', talk._id.split('/')[1]]);
   }
+
+  public ngOnDestroy() {}
 
 }

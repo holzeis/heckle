@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HeckleService } from '../../services/heckle.service';
 import { TalkService } from '../../services/talk.service';
-import { take } from 'rxjs/operators';
+import { take, takeUntil, filter, map } from 'rxjs/operators';
 import { Talk } from '../../models/talk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Heckle } from '../../models/heckle';
+import { WebsocketService } from '../../services/websocket.service';
+import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'app-heckle-view',
   templateUrl: './heckle-view.component.html',
   styleUrls: ['./heckle-view.component.scss']
 })
-export class HeckleViewComponent implements OnInit {
+export class HeckleViewComponent implements OnInit, OnDestroy {
 
   private talkId: string;
   public talk: Talk;
@@ -20,9 +22,12 @@ export class HeckleViewComponent implements OnInit {
   public heckleForm: FormGroup;
 
   constructor(private talkService: TalkService, private heckleService: HeckleService, private route: ActivatedRoute
-            , private formBuilder: FormBuilder) { }
+            , private formBuilder: FormBuilder, private websocketService: WebsocketService) { }
 
   public ngOnInit() {
+    this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Talk.PREFIX)
+      , map(u => u.data), filter((talk: Talk) => talk.talkId === this.talkId)).subscribe((talk: Talk) => this.talk = talk);
+
     this.heckleForm = this.formBuilder.group({
       message: ['', [Validators.required, Validators.maxLength(500)]]
     });
@@ -42,5 +47,7 @@ export class HeckleViewComponent implements OnInit {
       this.heckleForm.reset();
     }, (error) => console.error(error));
   }
+
+  public ngOnDestroy() {}
 
 }

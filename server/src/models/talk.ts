@@ -7,11 +7,13 @@ export class Talk implements nano.MaybeDocument{
     public static PREFIX = 'talk';
 
     public _id: string;
+    public talkId: string;
     public closed: boolean;
     
     constructor(public title: string, public presenter: User) {
         this.closed = false;
-        this._id = [Talk.PREFIX, v4()].join('/');
+        this.talkId = v4();
+        this._id = [Talk.PREFIX, this.talkId].join('/');
     }
 
     public getId(): string {
