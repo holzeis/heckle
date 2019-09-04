@@ -5,8 +5,23 @@
         "lastname": "Holzeis"
     },
     "claus": {
-        "email": "clausa@georgelabs.recruitee.com",
+        "email": "claus@georgelabs.recruitee.com",
         "firstname": "Claus",
         "lastname": "Polanka"
+    },
+    "jon": {
+        "email": "jon@doe.com",
+        "firstname": "Jon",
+        "lastname": "Doe"
+    },
+    "sarah": {
+        "email": "sarah.conner@gmail.com",
+        "firstname": "Sarah",
+        "lastname": "Conner"
+    },
+    "sabine": {
+        "email": "sabine@holzeis.me",
+        "firstname": "Sabine",
+        "lastname": "Holzeis"
     }
 }
