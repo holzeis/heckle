@@ -10,6 +10,6 @@ export class Talk {
     public talkId: string;
     public title: string;
     public closed: boolean;
-    public user: User;
+    public presenter: User;
     public date: Date;
 }
