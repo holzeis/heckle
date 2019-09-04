@@ -36,7 +36,7 @@ export class TalksViewComponent implements OnInit, OnDestroy {
       , map(u => u.data), filter(t => t._deleted)).subscribe((talk: Talk) => this.talks = this.talks.filter(t => t._id !== talk._id));
 
     this.talkForm = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.maxLength(10)]]
+      title: ['', [Validators.required, Validators.maxLength(25)]]
     });
 
     this.talkService.loadTalks().pipe(take(1)).subscribe((talks: Talk[]) => {
@@ -53,10 +53,6 @@ export class TalksViewComponent implements OnInit, OnDestroy {
 
   public open(talk: Talk) {
     this.router.navigate(talk._id.split('/'));
-  }
-
-  public heckle(talk: Talk) {
-    this.router.navigate(['heckle', talk._id.split('/')[1]]);
   }
 
   public ngOnDestroy() {}

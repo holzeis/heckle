@@ -62,6 +62,10 @@ export class TalkViewComponent implements OnInit, OnDestroy {
       (error) => console.error(error));
   }
 
+  public heckle() {
+    this.router.navigate(['/heckle', this.talkId]);
+  }
+
   public ngOnDestroy() {}
 
 }

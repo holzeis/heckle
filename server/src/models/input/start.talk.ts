@@ -3,7 +3,7 @@ import { MaxLength, IsNotEmpty } from 'class-validator';
 
 export class StartTalk {
 
-    @MaxLength(10)
+    @MaxLength(25)
     @IsNotEmpty()
     public title: string;
 

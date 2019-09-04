@@ -1,13 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-light">
   <div class="container">
-    <a class="btn btn-sm btn-info" routerLink="/">Back</a>
+    <a class="btn btn-sm btn-info" [routerLink]="'/talk/' + talkId">Back</a>
   </div>
 </nav>
 
 <div class="container mt-3" *ngIf="talk && !talk.closed">
   <h4>{{ talk.title }}</h4>
   <form [formGroup]="heckleForm">
-    <textarea class="mt-2 form-control input h-75" rows="13" formControlName="message" id="message" type="text"></textarea>
+    <textarea class="mt-2 form-control input h-75" rows="16" formControlName="message" id="message" type="text"></textarea>
   </form>
 </div>
 
