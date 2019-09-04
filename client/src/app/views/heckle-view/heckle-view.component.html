@@ -7,10 +7,15 @@
 <div class="container mt-3" *ngIf="talk && !talk.closed">
   <h4>{{ talk.title }}</h4>
   <form [formGroup]="heckleForm">
-    <textarea class="mt-2 form-control input h-75" rows="6" formControlName="message" id="message" type="text"></textarea>
-    <button class="btn btn-primary btn-block mt-4" (click)="heckle()" [disabled]="heckleForm.invalid">Heckle Talk</button>
+    <textarea class="mt-2 form-control input h-75" rows="13" formControlName="message" id="message" type="text"></textarea>
   </form>
 </div>
+
+<nav class="navbar border-top fixed-bottom navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <button class="btn btn-primary btn-block" (click)="heckle()" [disabled]="heckleForm.invalid">Heckle Talk</button>
+  </div>
+</nav>
 
 <div class="container mt-3">
   <div *ngIf="talk && talk.closed" class="alert alert-warning" role="alert">

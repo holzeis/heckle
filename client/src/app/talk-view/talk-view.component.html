@@ -15,9 +15,13 @@
     </div>
   </div>
 </div>
-<nav *ngIf="talk?.presenter?.email === user?.email && !talk.closed" class="navbar border-top fixed-bottom navbar-light bg-light">
-  <button class="btn btn-primary btn-block" (click)="stop()">Stop Talk</button>
+<nav *ngIf="talk?.presenter?.email === user?.email && !talk.closed" class="navbar border-top fixed-bottom navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <button class="btn btn-primary btn-block" (click)="stop()">Stop Talk</button>
+  </div>
 </nav>
-<nav *ngIf="talk?.presenter?.email === user?.email && talk.closed" class="navbar border-top fixed-bottom navbar-light bg-light">
-  <button class="btn btn-danger btn-block" (click)="delete()">Delete Talk</button>
+<nav *ngIf="talk?.presenter?.email === user?.email && talk.closed" class="navbar border-top fixed-bottom navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <button class="btn btn-danger btn-block" (click)="delete()">Delete Talk</button>
+  </div>
 </nav>
