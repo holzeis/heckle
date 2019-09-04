@@ -24,12 +24,14 @@ export class NotificationService {
 
     public async send(talkId: string, title: string, message: string) {
         const payload = {
-            "notification": {
-                "title": title,
-                "body": message,
-                "data": {
-                    "url": '/talk/' + talkId
-                }
+            notification: {
+                title: title,
+                body: message,
+                data: {
+                    url: '/talk/' + talkId
+                },
+                tag: talkId,
+                renotify: true
             }
         };
 
