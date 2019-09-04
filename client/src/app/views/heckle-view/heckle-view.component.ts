@@ -29,7 +29,7 @@ export class HeckleViewComponent implements OnInit, OnDestroy {
       , map(u => u.data), filter((talk: Talk) => talk.talkId === this.talkId)).subscribe((talk: Talk) => this.talk = talk);
 
     this.heckleForm = this.formBuilder.group({
-      message: ['', [Validators.required, Validators.maxLength(500)]]
+      message: ['', [Validators.required, Validators.maxLength(512)]]
     });
 
     this.route.params.pipe(take(1)).subscribe((params: Params) => {
