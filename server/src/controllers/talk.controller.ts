@@ -5,6 +5,7 @@ import { TokenAuthenticatorMiddleware } from '../middleware/token.authenticator.
 import { StartTalk } from '../models/input/start.talk';
 import { User } from '../models/user';
 import { NotificationService } from '../services/notifcation.service';
+import { Heckle } from '../models/heckle';
 
 @JsonController('/talk')
 @UseBefore(TokenAuthenticatorMiddleware)
@@ -37,7 +38,6 @@ export class TalkController {
 
   @Get('/:talkId')
   public async loadTalk(@Param('talkId') talkId: string): Promise<Talk> {
-    console.log(talkId);
     return this.dataService.load([Talk.PREFIX, talkId].join('/'));
   }
 
@@ -48,6 +48,13 @@ export class TalkController {
     if (!talk) {
       throw new NotFoundError();
     }
-    await this.dataService.delete(talk);
+    const promises: Promise<void>[] = [];
+    promises.push(this.dataService.delete(talk));
+
+    // delete all heckles
+    const heckles: Heckle[] = await this.dataService.loads([Heckle.PREFIX, talkId].join('/'));
+    heckles.forEach(heckle => promises.push(this.dataService.delete(heckle)));
+
+    await Promise.all(promises);
   }
 }

@@ -45,7 +45,7 @@ export class DataService {
      * Destroys a document in the data store
      * @param document the document to be destroyed
      */
-    public async delete<T extends Nano.MaybeDocument>(document: T) {
+    public async delete<T extends Nano.MaybeDocument>(document: T): Promise<void> {
         const heckle = this.nano.use('heckle');
         const response = await heckle.destroy(document._id, document._rev);
         if (!response.ok) {
