@@ -16,7 +16,7 @@ import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 })
 export class HeckleViewComponent implements OnInit, OnDestroy {
 
-  private talkId: string;
+  public talkId: string;
   public talk: Talk;
 
   public heckleForm: FormGroup;
