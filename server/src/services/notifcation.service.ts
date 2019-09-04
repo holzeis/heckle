@@ -45,6 +45,7 @@ export class NotificationService {
         if (!subscription) {
             // see if a subscription is persisted.
             subscription = await this.dataService.load([Subscription.PREFIX, talkId].join('/'));
+            this.subscriptions.push(subscription)
         }
         return subscription;
     }
