@@ -25,7 +25,7 @@ export class TalksViewComponent implements OnInit, OnDestroy {
       , map(u => u.data)).subscribe((talk: Talk) => this.talks.unshift(talk));
 
     this.talkForm = this.formBuilder.group({
-      title: ['', Validators.required]
+      title: ['', [Validators.required, Validators.maxLength(10)]]
     });
 
     this.talkService.loadTalks().pipe(take(1)).subscribe((talks: Talk[]) => {

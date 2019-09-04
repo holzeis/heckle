@@ -1,16 +1,19 @@
 <div class="container mt-3">
-  <form [formGroup]="talkForm" class="mb-4">
-    <div class="form-group">
-      <label class="small" for="title">Title</label>
-      <input class="form-control" formControlName="title" id="title">
-    </div>
-    <button class="btn btn-primary btn-block mt-4" (click)="start()" [disabled]="!talkForm.valid">Start Talk</button>
-  </form>
-  <div class="row mt-2" *ngFor="let talk of talks">
-    <div class="col">{{ talk.title }}</div>
-    <div class="col d-flex justify-content-end">
-      <button class="btn btn-outline-info btn-sm mr-1" (click)="open(talk)">open</button>
-      <button class="btn btn-outline-primary btn-sm" (click)="heckle(talk)" [disabled]="talk.closed">heckle</button>
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action d-flex justify-content-between" *ngFor="let talk of talks">
+      {{ talk.title }}
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-outline-info btn-sm mr-1" (click)="open(talk)">open</button>
+        <button class="btn btn-outline-primary btn-sm" (click)="heckle(talk)" [disabled]="talk.closed">heckle</button>
+      </div>
     </div>
   </div>
 </div>
+<nav class="navbar border-top fixed-bottom navbar-light bg-light">
+  <form [formGroup]="talkForm" class="input-group">
+    <input type="text" class="form-control" formControlName="title" placeholder="Title" aria-label="Title" aria-describedby="talk-button">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" [disabled]="!talkForm.valid" (click)="start()" type="button" id="talk-button">Talk</button>
+    </div>
+  </form>
+</nav>
