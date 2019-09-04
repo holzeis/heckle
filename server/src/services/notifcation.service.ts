@@ -21,7 +21,7 @@ export class NotificationService {
                 "title": title,
                 "body": message,
                 "data": {
-                    "talkId": talkId
+                    "url": '/talk/' + talkId
                 }
             }
         };

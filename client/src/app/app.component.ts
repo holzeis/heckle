@@ -43,11 +43,6 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    this.swPush.notificationClicks.subscribe((payload: any) => {
-        const url = `${environment.host}/talk/${payload.notification.data.talkId}`;
-        window.open(url);
-      });
-
     this.swPush.subscription.subscribe(async (subscription: PushSubscription) => {
       if (!subscription) {
         // register if subscription is not existing.

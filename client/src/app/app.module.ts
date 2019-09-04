@@ -32,7 +32,7 @@ import { HeckleViewComponent } from './views/heckle-view/heckle-view.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('service-worker.js', { enabled: environment.production })
   ],
   providers: [
     WebsocketService,
