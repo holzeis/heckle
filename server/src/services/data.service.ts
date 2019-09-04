@@ -28,8 +28,8 @@ export class DataService {
     }
 
     /**
-     * Persists a given document to the off chain store.
-     * @param document the document to be persisted to the off chain store
+     * Persists a given document to the data store.
+     * @param document the document to be persisted to the data store
      */
     public async persist<T extends Nano.MaybeDocument>(document: T): Promise<T> {
         const heckle = this.nano.use('heckle');
@@ -39,6 +39,18 @@ export class DataService {
         }
 
         return document;
+    }
+
+    /**
+     * Destroys a document in the data store
+     * @param document the document to be destroyed
+     */
+    public async delete<T extends Nano.MaybeDocument>(document: T) {
+        const heckle = this.nano.use('heckle');
+        const response = await heckle.destroy(document._id, document._rev);
+        if (!response.ok) {
+            throw new Error('Failed to destroy document with id: ' + document._id);
+        }
     }
 
     /**
@@ -83,8 +95,13 @@ export class DataService {
      * Register on change events on the couch db.
      * @param onEvent
      */
-    public register(onEvent: (update: Update) => void): void {
+    public register(onEvent: (update: Update) => void, ...types: string[]): void {
         const feed = this.nano.db.use('heckle').follow({ since: 'now', feed: 'continuous', include_docs: true }, () => { /* empty callback */ });
-        feed.on('change', (event) => onEvent(new Update(event.id.split('/').shift(), event.doc)));
+        feed.on('change', (event) => {
+            const prefix = event.id.split('/').shift();
+            if (types.includes(prefix)) {
+                onEvent(new Update(prefix, event.doc))
+            }
+        });
     }
 }

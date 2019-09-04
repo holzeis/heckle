@@ -15,7 +15,7 @@ export class TalkController {
   @Post('/start')
   public async start(@CurrentUser() presenter: User, @Body() startTalk: StartTalk): Promise<Talk> {
     const talk = new Talk(startTalk.title, presenter);
-    this.notificationService.register(talk.getId(), presenter.email, startTalk.subscription);
+    this.notificationService.register(talk.getId(), startTalk.subscription);
     return this.dataService.persist(talk);
   }
 
@@ -26,7 +26,7 @@ export class TalkController {
         throw new UnauthorizedError();
       }
       talk.closed = true;
-      this.notificationService.unregister(talkId, user.email);
+      this.notificationService.unregister(talkId);
       return this.dataService.persist(talk);
   }
 

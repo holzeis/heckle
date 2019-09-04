@@ -16,6 +16,7 @@ import { Configuration } from './services/configuration';
 import * as webpush from 'web-push';
 import { NotificationService } from './services/notifcation.service';
 import { Update } from './models/input/update';
+import { Talk } from './models/talk';
 
 class App {
 
@@ -55,10 +56,10 @@ class App {
         const dataService = await new DataService().initialize();
         dataService.register((update: Update) => {
             websocketService.send(update);
-        })
+        }, Talk.PREFIX, Heckle.PREFIX)
         Container.set(DataService, dataService);
         Container.set(ClientAuthenticator, new ClientAuthenticator());
-        Container.set(NotificationService, new NotificationService());
+        Container.set(NotificationService, new NotificationService(dataService));
 
         app.listen(3000, '0.0.0.0', () => {
             console.info('[App] App listens on port 3000.');

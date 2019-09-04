@@ -2,7 +2,7 @@ import nano = require("nano");
 import v4 = require('uuid/v4');
 import { User } from "./user";
 
-export class Talk implements nano.MaybeDocument{
+export class Talk implements nano.MaybeDocument {
 
     public static PREFIX = 'talk';
 
