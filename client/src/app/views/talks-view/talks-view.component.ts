@@ -22,7 +22,18 @@ export class TalksViewComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Talk.PREFIX)
-      , map(u => u.data)).subscribe((talk: Talk) => this.talks.unshift(talk));
+      , map(u => u.data), filter(t => !t._deleted)).subscribe((talk: Talk) => {
+        const index = this.talks.findIndex(t => t.talkId === talk.talkId);
+        if (index >= 0) {
+          this.talks[index] = talk;
+        } else {
+          this.talks.unshift(talk);
+        }
+      });
+
+    // handle deleted talks
+    this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Talk.PREFIX)
+      , map(u => u.data), filter(t => t._deleted)).subscribe((talk: Talk) => this.talks = this.talks.filter(t => t._id !== talk._id));
 
     this.talkForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(10)]]

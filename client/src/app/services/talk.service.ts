@@ -22,7 +22,11 @@ export class TalkService {
   }
 
   public stop(talkId: string): Observable<Talk> {
-    return this.httpClient.post<Talk>(this.baseUrl + '/stop/' + talkId, {});
+    return this.httpClient.post<Talk>(this.baseUrl + '/' + talkId + '/stop/', {});
+  }
+
+  public delete(talkId: string): Observable<Talk> {
+    return this.httpClient.delete<Talk>(this.baseUrl + '/' + talkId);
   }
 
   public loadTalks(): Observable<Talk[]> {

@@ -13,7 +13,7 @@ export class WebsocketService implements OnDestroy {
     private socket: WebSocket;
     private subject: Subject<MessageEvent>;
 
-    private heckle: Subject<Update> = new Subject<Update>();
+    private update: Subject<Update> = new Subject<Update>();
 
     public openWebSocket(retry = false, count = 0) {
         // connect to web socket.
@@ -61,12 +61,12 @@ export class WebsocketService implements OnDestroy {
         this.subject = Subject.create(observer, observable);
 
         this.subject.pipe(takeUntil(componentDestroyed(this))).subscribe(
-            (message) => this.heckle.next(JSON.parse(message.data)),
+            (message) => this.update.next(JSON.parse(message.data)),
             (error) => console.error('Failed to connect to the server.'));
     }
 
     public updates(): Observable<Update> {
-        return this.heckle.asObservable();
+        return this.update.asObservable();
     }
 
     public send(object: any) {

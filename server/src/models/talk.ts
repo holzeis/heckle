@@ -7,6 +7,7 @@ export class Talk implements nano.MaybeDocument {
     public static PREFIX = 'talk';
 
     public _id: string;
+    public _deleted: boolean;
     public talkId: string;
     public closed: boolean;
     public date: Date;

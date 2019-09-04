@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Body, Get, UseBefore, CurrentUser, UnauthorizedError } from 'routing-controllers';
+import { JsonController, Post, Param, Body, Get, UseBefore, CurrentUser, UnauthorizedError, Delete, NotFoundError, OnUndefined } from 'routing-controllers';
 import { Talk } from '../models/talk';
 import { DataService } from '../services/data.service';
 import { TokenAuthenticatorMiddleware } from '../middleware/token.authenticator.middleware';
@@ -19,7 +19,7 @@ export class TalkController {
     return this.dataService.persist(talk);
   }
 
-  @Post('/stop/:talkId')
+  @Post('/:talkId/stop')
   public async stop(@CurrentUser() user: User, @Param('talkId') talkId: string): Promise<Talk> {
       const talk: Talk = await this.dataService.load([Talk.PREFIX, talkId].join('/'));
       if (user.email !== talk.presenter.email) {
@@ -37,6 +37,17 @@ export class TalkController {
 
   @Get('/:talkId')
   public async loadTalk(@Param('talkId') talkId: string): Promise<Talk> {
+    console.log(talkId);
     return this.dataService.load([Talk.PREFIX, talkId].join('/'));
+  }
+
+  @Delete('/:talkId')
+  @OnUndefined(200)
+  public async deleteTalk(@Param('talkId') talkId: string): Promise<void> {
+    const talk: Talk = await this.dataService.load([Talk.PREFIX, talkId].join('/'));
+    if (!talk) {
+      throw new NotFoundError();
+    }
+    await this.dataService.delete(talk);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TalkService } from '../services/talk.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { take, filter, map } from 'rxjs/operators';
 import { Talk } from '../models/talk';
 import { Heckle } from '../models/heckle';
@@ -25,7 +25,7 @@ export class TalkViewComponent implements OnInit, OnDestroy {
   public heckles: Heckle[];
 
   public constructor(private websocketService: WebsocketService, private talkService: TalkService, private heckleService: HeckleService
-                   , private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+                   , private route: ActivatedRoute, private authenticationService: AuthenticationService, private router: Router) {
       this.user = this.authenticationService.getCurrentUser();
   }
 
@@ -54,6 +54,12 @@ export class TalkViewComponent implements OnInit, OnDestroy {
     this.talkService.stop(this.talkId).subscribe((talk: Talk) => {
       this.talk = talk;
     }, (error) => console.error(error));
+  }
+
+  public delete() {
+    this.talkService.delete(this.talkId).pipe(take(1)).subscribe(
+      () => this.router.navigate(['/']),
+      (error) => console.error(error));
   }
 
   public ngOnDestroy() {}

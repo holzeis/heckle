@@ -7,6 +7,7 @@ export class Heckle implements nano.MaybeDocument {
     public static PREFIX = 'heckle';
 
     public _id: string;
+    public _deleted: boolean;
     public date: Date;
 
     constructor(public talkId: string, public message: string, public attendee: User) {
