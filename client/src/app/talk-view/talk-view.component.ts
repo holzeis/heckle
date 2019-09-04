@@ -8,6 +8,8 @@ import { HeckleService } from '../services/heckle.service';
 import { takeUntil } from 'rxjs/operators';
 import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { WebsocketService } from '../services/websocket.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-talk-view',
@@ -16,12 +18,16 @@ import { WebsocketService } from '../services/websocket.service';
 })
 export class TalkViewComponent implements OnInit, OnDestroy {
 
+  public user: User;
+
   private talkId: string;
   public talk: Talk;
   public heckles: Heckle[];
 
-  constructor(private websocketService: WebsocketService, private talkService: TalkService, private heckleService: HeckleService
-            , private route: ActivatedRoute) { }
+  public constructor(private websocketService: WebsocketService, private talkService: TalkService, private heckleService: HeckleService
+                   , private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+      this.user = this.authenticationService.getCurrentUser();
+  }
 
   public ngOnInit() {
     this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Heckle.PREFIX)

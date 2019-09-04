@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
+import { Token } from '../models/input/token';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService implements OnDestroy {
@@ -44,6 +46,11 @@ export class AuthenticationService implements OnDestroy {
       'x-access-token': this.getToken(),
       'Content-Type': 'application/json',
     });
+  }
+
+  public getCurrentUser(): User {
+    const token: Token = new Token(JSON.parse(atob(this.getToken().split('.')[1])));
+    return new User(token.getEmail(), token.getFirstname(), token.getLastname());
   }
 
   public getToken(): string {
