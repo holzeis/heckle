@@ -4,6 +4,10 @@
       <label class="small" for="email" translate>Email</label>
       <input class="form-control" formControlName="email" id="email">
     </div>
-    <button class="btn btn-primary btn-block mt-4" [disabled]="!loginForm.valid" (click)="login()">Login</button>
   </form>
 </div>
+<nav class="navbar border-top fixed-bottom navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <button class="btn btn-primary btn-block" [disabled]="!loginForm.valid" (click)="login()">Login</button>
+    </div>
+  </nav>
