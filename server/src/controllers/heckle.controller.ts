@@ -1,7 +1,7 @@
 import { JsonController, Post, Param, Body, Get, NotFoundError, BadRequestError, CurrentUser } from 'routing-controllers';
 import { DataService } from '../services/data.service';
 import { Heckle } from '../models/heckle';
-import { Message } from '../models/input/message';
+import { Message } from '../models/transfer/message';
 import { NotificationService } from '../services/notifcation.service';
 import { Talk } from '../models/talk';
 import { User } from '../models/user';

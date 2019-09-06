@@ -15,7 +15,7 @@ import { ClientAuthenticator } from './authentication/client.authenticator';
 import { Configuration } from './services/configuration';
 import * as webpush from 'web-push';
 import { NotificationService } from './services/notifcation.service';
-import { Update } from './models/input/update';
+import { Update } from './models/transfer/update';
 import { Talk } from './models/talk';
 
 class App {

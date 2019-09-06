@@ -1,6 +1,6 @@
 import { Configuration } from './configuration';
 import * as Nano from 'nano';
-import { Update } from '../models/input/update';
+import { Update } from '../models/transfer/update';
 
 export class DataService {
 

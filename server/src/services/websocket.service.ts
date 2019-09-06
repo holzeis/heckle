@@ -1,5 +1,5 @@
 import * as WebSocket from 'ws';
-import { Update } from '../models/input/update';
+import { Update } from '../models/transfer/update';
 
 export class WebsocketService {
 

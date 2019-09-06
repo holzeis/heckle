@@ -1,6 +1,6 @@
 import { JsonController, Post, Body, UnauthorizedError } from 'routing-controllers';
 import { ClientAuthenticator } from '../authentication/client.authenticator';
-import { Credentials } from '../models/input/credentials';
+import { Credentials } from '../models/transfer/credentials';
 
 @JsonController('/auth')
 export class AuthenticationController {

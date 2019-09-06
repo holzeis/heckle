@@ -2,7 +2,7 @@ import { JsonController, Post, Param, Body, Get, UseBefore, CurrentUser, Unautho
 import { Talk } from '../models/talk';
 import { DataService } from '../services/data.service';
 import { TokenAuthenticatorMiddleware } from '../middleware/token.authenticator.middleware';
-import { StartTalk } from '../models/input/start.talk';
+import { StartTalk } from '../models/transfer/start.talk';
 import { User } from '../models/user';
 import { NotificationService } from '../services/notifcation.service';
 import { Heckle } from '../models/heckle';

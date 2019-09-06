@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import { Action } from 'routing-controllers';
 import { Request } from 'express';
 
-import { Token } from '../models/input/token';
+import { Token } from '../models/transfer/token';
 import { User } from '../models/user';
 
 export class AuthorizationChecker {
