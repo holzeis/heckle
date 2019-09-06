@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { environment } from 'src/environments/environment';
-import { Update } from '../models/input/update';
+import { Update } from '../models/transfer/update';
 
 
 @Injectable({providedIn: 'root'})

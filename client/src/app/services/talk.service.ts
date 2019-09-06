@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Talk } from '../models/talk';
 import { AuthenticationService } from './authentication.service';
-import { StartTalk } from '../models/input/start.talk';
+import { StartTalk } from '../models/transfer/start.talk';
 
 @Injectable({
   providedIn: 'root'

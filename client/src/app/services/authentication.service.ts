@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
-import { Token } from '../models/input/token';
+import { Token } from '../models/transfer/token';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService implements OnDestroy {
