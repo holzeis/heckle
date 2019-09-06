@@ -8,16 +8,16 @@ data:
   environment.ts: |
     export const environment = {
       production: false,
-      host: '{{ if .Values.ingressSecret }}https{{ else }}http{{ end }}://heckle.{{ .Values.host }}',
+      host: '{{ if .Values.ingress.secret }}https{{ else }}http{{ end }}://heckle.{{ .Values.ingress.host }}',
       api: 'api/v1',
-      socket: '{{ if .Values.ingressSecret }}wss{{ else }}ws{{ end }}://heckle-ws.{{ .Values.host }}',
+      socket: '{{ if .Values.ingress.secret }}wss{{ else }}ws{{ end }}://heckle-ws.{{ .Values.ingress.host }}',
       publicKey: '{{ .Values.vapid.publicKey }}',
     };
   environment.prod.ts: |
     export const environment = {
       production: true,
-      host: '{{ if .Values.ingressSecret }}https{{ else }}http{{ end }}://heckle.{{ .Values.host }}',
+      host: '{{ if .Values.ingress.secret }}https{{ else }}http{{ end }}://heckle.{{ .Values.ingress.host }}',
       api: 'api/v1',
-      socket: '{{ if .Values.ingressSecret }}wss{{ else }}ws{{ end }}://heckle-ws.{{ .Values.host }}',
+      socket: '{{ if .Values.ingress.secret }}wss{{ else }}ws{{ end }}://heckle-ws.{{ .Values.ingress.host }}',
       publicKey: '{{ .Values.vapid.publicKey }}',
     };

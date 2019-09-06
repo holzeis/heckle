@@ -80,7 +80,7 @@ spec:
               name: heckle-secret
               key: vapidPrivateKey
         - name: VAPID_PUBLIC
-          value: {{ .Values.vapidPublicKey }}
+          value: {{ .Values.vapid.publicKey }}
         volumeMounts:
         - mountPath: /config
           name: config
