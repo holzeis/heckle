@@ -1,11 +1,12 @@
 #!/bin/bash
 DEV_VERSION=dev
+RELEASE_VERSION=v1
 
 basedir=$( dirname "$0" )
 cd "$basedir/.."
 
 if [ -z $1 ]; then
-    echo "Missing argument. (build | watch [ --rebuild ] [server | client])"
+    echo "Missing argument. (build | release | watch [ --rebuild ] [server | client])"
     exit 1
 fi
 
@@ -24,6 +25,13 @@ function build() {
 
 if [ "build" = $1 ]; then
     build $2
+fi
+
+if [ "release" = $1 ]; then
+    docker build -t richardholzeis/heckle-$2:$DEV_VERSION $2
+    docker tag richardholzeis/heckle-$2:$DEV_VERSION richardholzeis/heckle-$2:$RELEASE_VERSION
+    docker push richardholzeis/heckle-$2:$RELEASE_VERSION
+    kubectl get pods -n heckle --no-headers -o=custom-columns=:metadata.name --selector=app=heckle-$2 | xargs -IPOD kubectl delete  --ignore-not-found=true -n heckle pod POD
 fi
 
 if [ "watch" = $1 ]; then
