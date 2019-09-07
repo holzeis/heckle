@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginViewComponent } from './views/login-view/login-view.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TalksViewComponent } from './views/talks-view/talks-view.component';
-import { TalkViewComponent } from './talk-view/talk-view.component';
+import { TalkViewComponent } from './views/talk-view/talk-view.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { HeckleViewComponent } from './views/heckle-view/heckle-view.component';
 

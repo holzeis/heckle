@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TalkService } from '../services/talk.service';
+import { TalkService } from '../../services/talk.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { take, filter, map } from 'rxjs/operators';
-import { Talk } from '../models/talk';
-import { Heckle } from '../models/heckle';
-import { HeckleService } from '../services/heckle.service';
+import { Talk } from '../../models/talk';
+import { Heckle } from '../../models/heckle';
+import { HeckleService } from '../../services/heckle.service';
 import { takeUntil } from 'rxjs/operators';
 import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { WebsocketService } from '../services/websocket.service';
-import { AuthenticationService } from '../services/authentication.service';
-import { User } from '../models/user';
+import { WebsocketService } from '../../services/websocket.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-talk-view',
