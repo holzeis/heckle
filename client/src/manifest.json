@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "short_name": "client",
+  "name": "Heckle",
+  "short_name": "Heckle",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
