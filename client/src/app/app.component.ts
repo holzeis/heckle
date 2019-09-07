@@ -3,6 +3,7 @@ import { WebsocketService } from './services/websocket.service';
 import { AuthenticationService } from './services/authentication.service';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
+import { AlertService } from './services/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   public signedIn: boolean;
 
   constructor(private websocketService: WebsocketService, private authenticationService: AuthenticationService
-            , private swUpdate: SwUpdate, private swPush: SwPush) {}
+            , private swUpdate: SwUpdate, private swPush: SwPush, private alertService: AlertService) {}
 
   public async ngOnInit() {
     if (this.swPush.isEnabled) {
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
         serverPublicKey: atob(environment.publicKey)
       }).then((subscription) => {
         sessionStorage.setItem('subscription', JSON.stringify(subscription));
-      }).catch(error => console.error(error));
+      }).catch(error => this.alertService.error(error));
     }
 
     this.signedIn = this.authenticationService.getToken() ? true : false;

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,10 +13,11 @@ import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TalksViewComponent } from './views/talks-view/talks-view.component';
 import { TalkService } from './services/talk.service';
-import { TalkViewComponent } from './talk-view/talk-view.component';
+import { TalkViewComponent } from './views/talk-view/talk-view.component';
 import { Interceptors } from './interceptors/index';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { HeckleViewComponent } from './views/heckle-view/heckle-view.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,12 @@ import { HeckleViewComponent } from './views/heckle-view/heckle-view.component';
     TalksViewComponent,
     TalkViewComponent,
     NotFoundComponent,
-    HeckleViewComponent
+    HeckleViewComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-login-view',
@@ -15,7 +16,7 @@ export class LoginViewComponent implements OnInit {
   public loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute
-            , private authenticationService: AuthenticationService) { }
+            , private authenticationService: AuthenticationService, private alertService: AlertService) { }
 
   public ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -27,12 +28,14 @@ export class LoginViewComponent implements OnInit {
       this.authenticationService.logout();
     }
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   public login() {
     this.authenticationService.login(this.loginForm.value.email)
-      .pipe(take(1)).subscribe(() => this.router.navigate([this.returnUrl]), (error: any) => console.error(error));
+      .pipe(take(1)).subscribe(
+        () => this.router.navigate([this.returnUrl]),
+        (error: any) => this.alertService.error(error.error ? error.error.message : error.message));
   }
 
 }

@@ -10,6 +10,7 @@ import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { WebsocketService } from '../../services/websocket.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../models/user';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-talk-view',
@@ -25,7 +26,8 @@ export class TalkViewComponent implements OnInit, OnDestroy {
   public heckles: Heckle[];
 
   public constructor(private websocketService: WebsocketService, private talkService: TalkService, private heckleService: HeckleService
-                   , private route: ActivatedRoute, private authenticationService: AuthenticationService, private router: Router) {
+                   , private route: ActivatedRoute, private authenticationService: AuthenticationService, private router: Router
+                   , private alertService: AlertService) {
       this.user = this.authenticationService.getCurrentUser();
   }
 
@@ -42,24 +44,24 @@ export class TalkViewComponent implements OnInit, OnDestroy {
 
       this.talkService.loadTalk(this.talkId).pipe(take(1)).subscribe((talk: Talk) => {
         this.talk = talk;
-      }, (error) => console.error(error));
+      }, (error) => this.alertService.error(error));
 
       this.heckleService.loadHeckles(this.talkId).pipe(take(1)).subscribe((heckles: Heckle[]) => {
         this.heckles = heckles.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? -1 : 1);
-      }, (error) => console.error(error));
+      }, (error) => this.alertService.error(error));
     });
   }
 
   public stop() {
     this.talkService.stop(this.talkId).subscribe((talk: Talk) => {
       this.talk = talk;
-    }, (error) => console.error(error));
+    }, (error) => this.alertService.error(error));
   }
 
   public delete() {
     this.talkService.delete(this.talkId).pipe(take(1)).subscribe(
       () => this.router.navigate(['/']),
-      (error) => console.error(error));
+      (error) => this.alertService.error(error));
   }
 
   public heckle() {

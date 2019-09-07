@@ -1,0 +1,3 @@
+<div [@alertState]="stateName" class="app-alert-wrapper mx-auto position-fixed text-center">
+  <div class="alert alert-{{ alert.type }}" role="alert" *ngIf='alert'>{{alert.message}}</div>
+</div>

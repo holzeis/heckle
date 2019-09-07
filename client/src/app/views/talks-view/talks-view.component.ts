@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WebsocketService } from '../../services/websocket.service';
 import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-talks-view',
@@ -18,7 +19,7 @@ export class TalksViewComponent implements OnInit, OnDestroy {
   public talks: Talk[] = [];
 
   constructor(private talkService: TalkService, private router: Router, private formBuilder: FormBuilder
-            , private websocketService: WebsocketService) { }
+            , private websocketService: WebsocketService, private alertService: AlertService) { }
 
   public ngOnInit() {
     this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Talk.PREFIX)
@@ -41,14 +42,14 @@ export class TalksViewComponent implements OnInit, OnDestroy {
 
     this.talkService.loadTalks().pipe(take(1)).subscribe((talks: Talk[]) => {
       this.talks = talks.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? -1 : 1);
-    }, (error) => console.error(error));
+    }, (error) => this.alertService.error(error));
   }
 
   public start() {
     this.talkService.start(this.talkForm.value.title).subscribe((talk: Talk) => {
       this.talks.push(talk);
       this.router.navigate(talk._id.split('/'));
-    }, (error) => console.error(error));
+    }, (error) => this.alertService.error(error));
   }
 
   public open(talk: Talk) {
