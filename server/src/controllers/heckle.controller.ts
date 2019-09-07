@@ -21,7 +21,7 @@ export class HeckleController {
       throw new BadRequestError('Talk is already closed!'); 
     }
     const heckle = new Heckle(talkId, message.content, antendee);
-    this.notificationService.send(talkId, talk.title, heckle.message);
+    await this.notificationService.send(talkId, talk.title, heckle.message);
     return this.dataService.persist(heckle);
   }
 
