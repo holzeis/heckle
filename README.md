@@ -62,14 +62,13 @@ The Heckle Solution is build as progressive web application to give the impressi
 
  1. ... cache application data to reduce loading time.
 
-
 **Architectureal benefits**: Fosters platform independency, portable and open.
 
 ### Data Model
 
 The data model below depicts the data stored to the data tier. The following list provides key considerations for that data model.
 
-<img alt="data model" align="left" src="images/datamodel.png" width="350">
+<img alt="data model" align="left" src="images/datamodel.png" width="290">
 
 * Heckles and Talks are stored independently in order to prevent contengency when 400 atendees heckling about the same talk.
 
@@ -77,6 +76,5 @@ The data model below depicts the data stored to the data tier. The following lis
     1. The id matches the resource endpoint in the integration layer of the backend service.
 
     1. The id can be used to easily query all heckles of a talk or a specific heckle.
-
 
 **Architectural benefits**: scaleability, maintaibability
