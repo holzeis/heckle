@@ -17,11 +17,12 @@ export class AppComponent implements OnInit {
             , private swUpdate: SwUpdate, private swPush: SwPush) {}
 
   public async ngOnInit() {
-    if (!sessionStorage.getItem('subscription')) {
-      const subscription = await this.swPush.requestSubscription({
+    if (this.swPush.isEnabled) {
+      this.swPush.requestSubscription({
         serverPublicKey: atob(environment.publicKey)
-      });
-      sessionStorage.setItem('subscription', JSON.stringify(subscription));
+      }).then((subscription) => {
+        sessionStorage.setItem('subscription', JSON.stringify(subscription));
+      }).catch(error => console.error(error));
     }
 
     this.signedIn = this.authenticationService.getToken() ? true : false;
