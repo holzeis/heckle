@@ -8,10 +8,13 @@ export class Heckle implements nano.MaybeDocument {
 
     public _id: string;
     public _deleted: boolean;
+
+    public heckleId: string
     public date: Date;
 
     constructor(public talkId: string, public message: string, public attendee: User) {
-        this._id = [Heckle.PREFIX, talkId, v4()].join('/');
+        this.heckleId = v4();
+        this._id = [Heckle.PREFIX, talkId, this.heckleId].join('/');
         this.date = new Date();
      }
 }

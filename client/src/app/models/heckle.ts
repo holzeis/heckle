@@ -8,6 +8,7 @@ export class Heckle {
     public _deleted: boolean;
 
     public talkId: string;
+    public heckleId: string;
     public date: Date;
     public message: string;
     public attendee: User;
