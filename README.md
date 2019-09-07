@@ -69,6 +69,8 @@ The Heckle Solution is build as progressive web application to give the impressi
 
 The data model below depicts the data stored to the data tier. The following list provides key considerations for that data model.
 
+<img alt="data model" align="left" src="images/datamodel.png" width="350">
+
 * Heckles and Talks are stored independently in order to prevent contengency when 400 atendees heckling about the same talk.
 
 * The Heckle and Talk data entities are namespaced in the Couch DB. e.g. the document id of an heckle is "heckle/[talk-id]/[uuid]". Thus providing two advantages.
@@ -76,6 +78,5 @@ The data model below depicts the data stored to the data tier. The following lis
 
     1. The id can be used to easily query all heckles of a talk or a specific heckle.
 
-![data model](images/datamodel.png)
 
 **Architectural benefits**: scaleability, maintaibability
