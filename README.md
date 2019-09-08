@@ -64,6 +64,12 @@ The Heckle Solution is build as progressive web application to give the impressi
 
 **Architectureal benefits**: Fosters platform independency, portable and open.
 
+### Web Socket Service
+
+The Heckle Solution is build on bi-directional communication between the heckle client and the heckle server. A client registers on the server for notifications about talks and heckles. The heckle server is responsible for listening to the data store for changes and informs any registered client about the update.
+
+**Architectureal benefits**: scalability, performance and responsiveness.
+
 ### Data Model
 
 The data model below depicts the data stored to the data tier. The following list provides key considerations for that data model.
