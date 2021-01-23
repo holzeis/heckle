@@ -25,7 +25,7 @@
     "@w11k/ngx-componentdestroyed": "^4.1.4",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.15.0",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.5.2",
