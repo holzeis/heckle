@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TalkService } from '../../services/talk.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { take, filter, map } from 'rxjs/operators';
@@ -6,18 +6,18 @@ import { Talk } from '../../models/talk';
 import { Heckle } from '../../models/heckle';
 import { HeckleService } from '../../services/heckle.service';
 import { takeUntil } from 'rxjs/operators';
-import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { WebsocketService } from '../../services/websocket.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../models/user';
 import { AlertService } from '../../services/alert.service';
+import { componentDestroyed, OnDestroyMixin } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'app-talk-view',
   templateUrl: './talk-view.component.html',
   styleUrls: ['./talk-view.component.scss']
 })
-export class TalkViewComponent implements OnInit, OnDestroy {
+export class TalkViewComponent extends OnDestroyMixin implements OnInit {
 
   public user: User;
 
@@ -28,6 +28,7 @@ export class TalkViewComponent implements OnInit, OnDestroy {
   public constructor(private websocketService: WebsocketService, private talkService: TalkService, private heckleService: HeckleService
                    , private route: ActivatedRoute, private authenticationService: AuthenticationService, private router: Router
                    , private alertService: AlertService) {
+      super();
       this.user = this.authenticationService.getCurrentUser();
   }
 
@@ -67,7 +68,5 @@ export class TalkViewComponent implements OnInit, OnDestroy {
   public heckle() {
     this.router.navigate(['/heckle', this.talkId]);
   }
-
-  public ngOnDestroy() {}
 
 }

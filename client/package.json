@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.1.13",
     "@angular/router": "~9.1.13",
     "@angular/service-worker": "~9.1.13",
-    "@w11k/ngx-componentdestroyed": "^4.1.4",
+    "@w11k/ngx-componentdestroyed": "^5.0.2",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "jquery": "^3.5.0",

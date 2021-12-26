@@ -1,14 +1,14 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject, Observer, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { componentDestroyed, OnDestroyMixin } from '@w11k/ngx-componentdestroyed';
 import { environment } from 'src/environments/environment';
 import { Update } from '../models/transfer/update';
 
 
 @Injectable({providedIn: 'root'})
-export class WebsocketService implements OnDestroy {
+export class WebsocketService extends OnDestroyMixin {
 
     private socket: WebSocket;
     private subject: Subject<MessageEvent>;
@@ -72,6 +72,4 @@ export class WebsocketService implements OnDestroy {
     public send(object: any) {
         this.subject.next(object);
     }
-
-    public ngOnDestroy() { }
 }

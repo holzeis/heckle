@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HeckleService } from '../../services/heckle.service';
 import { TalkService } from '../../services/talk.service';
@@ -7,15 +7,15 @@ import { Talk } from '../../models/talk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Heckle } from '../../models/heckle';
 import { WebsocketService } from '../../services/websocket.service';
-import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { AlertService } from '../../services/alert.service';
+import { componentDestroyed, OnDestroyMixin } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'app-heckle-view',
   templateUrl: './heckle-view.component.html',
   styleUrls: ['./heckle-view.component.scss']
 })
-export class HeckleViewComponent implements OnInit, OnDestroy {
+export class HeckleViewComponent extends OnDestroyMixin implements OnInit {
 
   public talkId: string;
   public talk: Talk;
@@ -23,7 +23,9 @@ export class HeckleViewComponent implements OnInit, OnDestroy {
   public heckleForm: FormGroup;
 
   constructor(private talkService: TalkService, private heckleService: HeckleService, private route: ActivatedRoute, private router: Router
-            , private formBuilder: FormBuilder, private websocketService: WebsocketService, private alertService: AlertService) { }
+            , private formBuilder: FormBuilder, private websocketService: WebsocketService, private alertService: AlertService) {
+              super();
+  }
 
   public ngOnInit() {
     this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Talk.PREFIX)
@@ -53,7 +55,5 @@ export class HeckleViewComponent implements OnInit, OnDestroy {
       this.heckleForm.reset();
     }, (error) => this.alertService.error(error));
   }
-
-  public ngOnDestroy() {}
 
 }
