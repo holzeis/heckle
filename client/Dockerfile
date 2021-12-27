@@ -1,13 +1,15 @@
-FROM node:10.16-alpine
+FROM node:17-alpine As builder
 
-# Create app directory
 WORKDIR /usr/src/app
-RUN npm install -g http-server
 
-COPY package.json /usr/src/app
+COPY package.json package-lock.json ./
 
 RUN npm install
-COPY . /usr/src/app/
 
-EXPOSE 4200
-CMD [ "npm", "start" ]
+COPY . .
+
+RUN npm run build --prod
+
+FROM nginx:1.15.8-alpine
+
+COPY --from=builder /usr/src/app/dist/heckle/ /usr/share/nginx/html
