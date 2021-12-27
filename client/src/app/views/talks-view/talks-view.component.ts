@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Talk } from '../../models/talk';
 import { TalkService } from '../../services/talk.service';
 import { take, takeUntil, filter, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WebsocketService } from '../../services/websocket.service';
-import { componentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { componentDestroyed, OnDestroyMixin } from '@w11k/ngx-componentdestroyed';
 import { AlertService } from '../../services/alert.service';
 
 @Component({
@@ -13,13 +13,15 @@ import { AlertService } from '../../services/alert.service';
   templateUrl: './talks-view.component.html',
   styleUrls: ['./talks-view.component.scss']
 })
-export class TalksViewComponent implements OnInit, OnDestroy {
+export class TalksViewComponent extends OnDestroyMixin implements OnInit {
 
   public talkForm: FormGroup;
   public talks: Talk[] = [];
 
   constructor(private talkService: TalkService, private router: Router, private formBuilder: FormBuilder
-            , private websocketService: WebsocketService, private alertService: AlertService) { }
+            , private websocketService: WebsocketService, private alertService: AlertService) {
+              super();
+  }
 
   public ngOnInit() {
     this.websocketService.updates().pipe(takeUntil(componentDestroyed(this)), filter(u => u.prefix === Talk.PREFIX)
@@ -55,7 +57,5 @@ export class TalksViewComponent implements OnInit, OnDestroy {
   public open(talk: Talk) {
     this.router.navigate(talk._id.split('/'));
   }
-
-  public ngOnDestroy() {}
 
 }
