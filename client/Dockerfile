@@ -12,4 +12,4 @@ RUN npm run build --prod
 
 FROM nginx:1.15.8-alpine
 
-COPY --from=builder /usr/src/app/dist/heckle/ /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist/client/ /usr/share/nginx/html
