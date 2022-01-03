@@ -20,10 +20,16 @@ export class AppComponent implements OnInit {
   public async ngOnInit() {
     if (this.swPush.isEnabled) {
       this.swPush.requestSubscription({
-        serverPublicKey: atob(environment.publicKey)
+        serverPublicKey: environment.publicKey
       }).then((subscription) => {
         sessionStorage.setItem('subscription', JSON.stringify(subscription));
-      }).catch(error => this.alertService.error(error));
+        console.log('Successfully subscribed.');
+      }).catch(error => {
+        console.error(error)
+        this.alertService.error('Subscription failed - Push notifications will not work.');
+      });
+    } else {
+      console.warn('Service worker is not enabled.');
     }
 
     this.signedIn = this.authenticationService.getToken() ? true : false;
@@ -34,7 +40,7 @@ export class AppComponent implements OnInit {
     this.websocketService.openWebSocket();
 
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.available.subscribe(() => {
+      this.swUpdate.versionUpdates.subscribe(() => {
           if (confirm('New version available. Load New Version?')) {
               window.location.reload();
           }

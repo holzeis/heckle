@@ -15,7 +15,7 @@ export class AuthenticationService implements OnDestroy {
   private authenticationUrl: string;
 
   public constructor(private httpClient: HttpClient) {
-    this.authenticationUrl = `${environment.host}/${environment.api}`;
+    this.authenticationUrl = `${environment.host}${environment.api}`;
   }
 
   public login(email: string): Observable<any> {
