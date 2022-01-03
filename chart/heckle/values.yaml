@@ -1,0 +1,109 @@
+vapid:
+  publicKey:
+  privateKey:
+
+host: heckle.example.com
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+server:
+  replicaCount: 1
+
+  image:
+    repository: richardholzeis/heckle-server
+    pullPolicy: IfNotPresent
+    tag: "0.1.3"
+
+  jwt:
+    secret:
+
+  service:
+    type: ClusterIP
+    websocket:
+      port: 2000
+
+    api:
+      port: 3000
+
+  couchdb:
+    adminUsername: admin
+    adminPassword: C3aTxMHSSCxWD3wQQUkO
+    endpoint: couchdb-couchdb
+    port: 5984
+  
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+ui:
+  replicaCount: 1
+  enabled: true
+
+  image:
+    repository: richardholzeis/heckle-client
+    pullPolicy: IfNotPresent
+    tag: "0.1.3"
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+ingress:
+  enabled: false
+  annotations:
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+    # kubernetes.io/ingress.class: nginx
+  tls:
+    - secretName: heckle-tls
+      hosts:
+        - heckle.example.com
+  labels: {}
+  websocketPath: "/ws"
+  apiPath: "/api/v1"
+  uiPath: "/"
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
