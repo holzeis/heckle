@@ -44,14 +44,14 @@ export class TalksViewComponent extends OnDestroyMixin implements OnInit {
 
     this.talkService.loadTalks().pipe(take(1)).subscribe((talks: Talk[]) => {
       this.talks = talks.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? -1 : 1);
-    }, (error) => this.alertService.error(error));
+    }, (error) => this.alertService.error(error.message || error));
   }
 
   public start() {
     this.talkService.start(this.talkForm.value.title).subscribe((talk: Talk) => {
       this.talks.push(talk);
       this.router.navigate(talk._id.split('/'));
-    }, (error) => this.alertService.error(error));
+    }, (error) => this.alertService.error(error.message || error));
   }
 
   public open(talk: Talk) {

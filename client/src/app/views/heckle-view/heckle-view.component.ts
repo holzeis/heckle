@@ -45,7 +45,7 @@ export class HeckleViewComponent extends OnDestroyMixin implements OnInit {
 
       this.talkService.loadTalk(this.talkId).pipe(take(1)).subscribe(
         (talk: Talk) => this.talk = talk,
-        (error) => this.alertService.error(error));
+        (error) => this.alertService.error(error.message || error));
     });
   }
 
@@ -53,7 +53,7 @@ export class HeckleViewComponent extends OnDestroyMixin implements OnInit {
     this.heckleService.heckle(this.talkId, this.heckleForm.value.message).subscribe((heckle: Heckle) => {
       this.alertService.success('Successfully heckled!');
       this.heckleForm.reset();
-    }, (error) => this.alertService.error(error));
+    }, (error) => this.alertService.error(error.message || error));
   }
 
 }
