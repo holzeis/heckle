@@ -45,24 +45,24 @@ export class TalkViewComponent extends OnDestroyMixin implements OnInit {
 
       this.talkService.loadTalk(this.talkId).pipe(take(1)).subscribe((talk: Talk) => {
         this.talk = talk;
-      }, (error) => this.alertService.error(error));
+      }, (error) => this.alertService.error(error.message || error));
 
       this.heckleService.loadHeckles(this.talkId).pipe(take(1)).subscribe((heckles: Heckle[]) => {
         this.heckles = heckles.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime() ? -1 : 1);
-      }, (error) => this.alertService.error(error));
+      }, (error) => this.alertService.error(error.message || error));
     });
   }
 
   public stop() {
     this.talkService.stop(this.talkId).subscribe((talk: Talk) => {
       this.talk = talk;
-    }, (error) => this.alertService.error(error));
+    }, (error) => this.alertService.error(error.message || error));
   }
 
   public delete() {
     this.talkService.delete(this.talkId).pipe(take(1)).subscribe(
       () => this.router.navigate(['/']),
-      (error) => this.alertService.error(error));
+      (error) => this.alertService.error(error.message || error));
   }
 
   public heckle() {

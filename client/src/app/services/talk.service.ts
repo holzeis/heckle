@@ -14,7 +14,7 @@ export class TalkService {
   private baseUrl: string;
 
   public constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
-    this.baseUrl = `${environment.host}/${environment.api}/talk`;
+    this.baseUrl = `${environment.host}${environment.api}/talk`;
   }
 
   public start(title: string): Observable<Talk> {

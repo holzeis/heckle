@@ -1,5 +1,6 @@
 import * as WebSocket from 'ws';
 import { Update } from '../models/transfer/update';
+import { Configuration } from '../services/configuration';
 
 export class WebsocketService {
 
@@ -7,7 +8,7 @@ export class WebsocketService {
 
     public initialize(): WebsocketService {
         //initialize the WebSocket server instance
-        const wss = new WebSocket.Server({ port: 2000 });
+        const wss = new WebSocket.Server({ port: Configuration.instance().websocketPort });
         wss.on('connection', (ws: WebSocket) => {
             this.register(ws);
         });

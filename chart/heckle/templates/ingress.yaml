@@ -1,0 +1,73 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: {{ include "heckle.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ template "heckle.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "heckle.name" . }}
+    helm.sh/chart: {{ include "heckle.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: app
+{{- if .Values.ingress.labels }}
+{{ toYaml .Values.ingress.labels | indent 4 }}
+{{- end }}
+{{- if .Values.ingress.annotations }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- end }}
+spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  rules:
+  - host: {{ .Values.host }}
+    http:
+      paths:
+      - path: {{ .Values.ingress.uiPath }}
+        {{- if eq (include "heckle.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+        pathType: ImplementationSpecific
+        {{- end }}
+        backend:
+          {{- if eq (include "heckle.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+          service:
+            name: {{ template "heckle.uiname" . }}
+            port:
+              number: {{ .Values.ui.service.port }}
+          {{- else }}
+          serviceName: {{ template "heckle.ui" . }}
+          servicePort: {{ .Values.ui.service.port }}
+          {{- end }}
+      - path: {{ .Values.ingress.apiPath }}
+        {{- if eq (include "heckle.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+        pathType: ImplementationSpecific
+        {{- end }}
+        backend:
+          {{- if eq (include "heckle.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+          service:
+            name: {{ template "heckle.servername" . }}
+            port:
+              number: {{ .Values.server.service.api.port }}
+          {{- else }}
+          serviceName: {{ template "heckle.servername" . }}
+          servicePort: {{ .Values.server.service.api.port }}
+          {{- end }}
+      - path: {{ .Values.ingress.websocketPath }}
+        {{- if eq (include "heckle.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+        pathType: ImplementationSpecific
+        {{- end }}
+        backend:
+          {{- if eq (include "heckle.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+          service:
+            name: {{ template "heckle.servername" . }}
+            port:
+              number: {{ .Values.server.service.websocket.port }}
+          {{- else }}
+          serviceName: {{ template "heckle.servername" . }}
+          servicePort: {{ .Values.server.service.websocket.port }}
+          {{- end }}
+{{- if .Values.ingress.tls }}
+  tls:
+{{ toYaml .Values.ingress.tls | indent 4 }}
+{{- end -}}
+{{- end }}

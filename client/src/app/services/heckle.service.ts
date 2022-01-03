@@ -13,7 +13,7 @@ export class HeckleService {
   private baseUrl: string;
 
   public constructor(private httpClient: HttpClient) {
-    this.baseUrl = `${environment.host}/${environment.api}/heckle`;
+    this.baseUrl = `${environment.host}${environment.api}/heckle`;
   }
 
   public loadHeckles(talkId: string): Observable<Heckle[]> {
