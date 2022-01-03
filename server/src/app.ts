@@ -4,9 +4,7 @@ import { useExpressServer, useContainer } from 'routing-controllers';
 import { Container } from 'typedi';
 
 import * as express from 'express';
-import * as cors from 'cors';
 
-import compression = require('compression');
 import { WebsocketService } from './services/websocket.service';
 import { DataService } from './services/data.service';
 import { Heckle } from './models/heckle';
@@ -24,9 +22,6 @@ class App {
         // initialize http server
         let app = express();
 
-        // needed for cross resource referencing
-        app.use(cors());
-
         // used for dependency injection
         useContainer(Container);
 
@@ -40,15 +35,13 @@ class App {
             currentUserChecker: AuthorizationChecker.currentUser,
         });
 
-        app.use(compression());
-
         console.info('[App] Initializing websocket handler.');
         const websocketService = new WebsocketService().initialize();
         Container.set(WebsocketService, websocketService);
 
         webpush.setVapidDetails(
-            'mailto:richard.holzeis@gmail.com',
-            Buffer.from(Configuration.instance().publicKey, 'base64').toString('utf8'),
+            'mailto:richard@holzeis.me',
+            Configuration.instance().publicKey,
             Configuration.instance().privateKey
         );
 
@@ -61,8 +54,8 @@ class App {
         Container.set(ClientAuthenticator, new ClientAuthenticator());
         Container.set(NotificationService, new NotificationService(dataService));
 
-        app.listen(3000, '0.0.0.0', () => {
-            console.info('[App] App listens on port 3000.');
+        app.listen(Configuration.instance().apiPort, '0.0.0.0', () => {
+            console.info('[App] App listens on port ' + Configuration.instance().apiPort + '.');
         });
     }
 }
