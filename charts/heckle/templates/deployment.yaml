@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "heckle.servername" . }}
+  labels:
+    {{- include "heckle.serverLabels" . | nindent 4 }}
+spec:
+  {{- if not .Values.server.autoscaling.enabled }}
+  replicas: {{ .Values.server.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "heckle.serverSelectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "heckle.serverSelectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "heckle.servername" . }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}
+          imagePullPolicy: {{ .Values.server.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.server.service.api.port }}
+            - name: websocket
+              containerPort: {{ .Values.server.service.websocket.port }}
+          env:
+            - name: COUCHDB_ADMIN_USER
+              value: {{ .Values.server.couchdb.adminUsername | quote }}
+            - name: COUCHDB_ADMIN_PASSWORD
+              value: {{ .Values.server.couchdb.adminPassword | quote }}
+            - name: COUCHDB_ENDPOINT
+              value: {{ .Values.server.couchdb.endpoint | quote }}
+            - name: COUCHDB_PORT
+              value: {{ .Values.server.couchdb.port | quote  }}
+            - name: API_PORT
+              value: {{ .Values.server.service.api.port | quote  }}
+            - name: WEBSOCKET_PORT
+              value: {{ .Values.server.service.websocket.port | quote  }}
+            - name: JSON_WEBTOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "heckle.fullname" . }}-secret
+                  key: jsonWebTokenSecret
+            - name: VAPID_PRIVATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "heckle.fullname" . }}-secret
+                  key: vapidPrivateKey
+            - name: VAPID_PUBLIC
+              value: {{ .Values.vapid.publicKey }}
+          volumeMounts:
+            - mountPath: /config
+              name: config
+          livenessProbe:
+            httpGet:
+              path: "{{ .Values.ingress.apiPath }}/health"
+              port: http
+          readinessProbe:
+            httpGet:
+              path: "{{ .Values.ingress.apiPath }}/health"
+              port: http
+          resources:
+            {{- toYaml .Values.server.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "heckle.fullname" . }}-config
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
