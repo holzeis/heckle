@@ -18,7 +18,7 @@ jobs:
         id: prepare-server
         run: |
           DOCKER_IMAGE=ghcr.io/holzeis/heckle-server
-          DOCKER_PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386
+          DOCKER_PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           VERSION=${{ github.event.inputs.version }}
           TAGS="--tag ${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=docker_image::${DOCKER_IMAGE}
