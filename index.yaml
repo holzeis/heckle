@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  heckle:
+  - apiVersion: v2
+    created: "2022-01-05T18:46:55.950666045Z"
+    description: A Helm chart for Kubernetes
+    digest: 1f0470904e8bb711fbe10ae76d4480ac99279c12e48f1f293254d3808c065fac
+    name: heckle
+    type: application
+    urls:
+    - https://github.com/holzeis/heckle/releases/download/heckle-0.1.0/heckle-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-01-05T18:46:55.8607611Z"
