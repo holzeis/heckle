@@ -1,27 +1,22 @@
 # Heckle
 
-A sample project for a progressive web application - see more on the [architecture](architecture/README.md).
+## Usage
 
-## tl;dr
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
 
-```bash
-helm repo add couchdb https://apache.github.io/couchdb-helm
-helm install couchdb -n heckle couchdb/couchdb -f chart/couchdb/values.yaml --create-namespace
+Once Helm has been set up correctly, add the repo as follows:
 
-helm repo add holzeis https://chartmuseum.holzeis.me
-helm install heckle -n heckle holzeis/heckle -f values.yaml # create your own values.yaml
-```
+  helm repo add <alias> https://<orgname>.github.io/helm-charts
 
-## Web Push
+If you had already added this repo earlier, run `helm repo update` to retrieve
+the latest versions of the packages.  You can then run `helm search repo
+<alias>` to see the charts.
 
-Heckle uses the [WebPush Protocol](https://datatracker.ietf.org/doc/html/draft-ietf-webpush-protocol) to push notifications to user agents through push services. In order to distinguish between legitimate and bogus requests push services require a voluntary application server identification ([VAPID](https://datatracker.ietf.org/doc/html/draft-thomson-webpush-vapid)).
+To install the <chart-name> chart:
 
+    helm install my-<chart-name> <alias>/<chart-name>
 
-### Generate VAPID keys
+To uninstall the chart:
 
-Generate a valid private / public key pair using the web-push cli like described below. Use the result in the vapid section of the values.yaml.
-
-```bash
-npm install -g web-push
-web-push generate-vapid-keys
-```
+    helm delete my-<chart-name>
