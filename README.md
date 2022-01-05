@@ -8,7 +8,7 @@ A sample project for a progressive web application - see more on the [architectu
 helm repo add couchdb https://apache.github.io/couchdb-helm
 helm install couchdb -n heckle couchdb/couchdb -f chart/couchdb/values.yaml --create-namespace
 
-helm repo add holzeis https://chartmuseum.holzeis.me
+helm repo add holzeis https://holzeis.github.io/helm-charts
 helm install heckle -n heckle holzeis/heckle -f values.yaml # create your own values.yaml
 ```
 
