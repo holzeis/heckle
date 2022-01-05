@@ -12,6 +12,8 @@ RUN npm run build
 ## this is stage two , where the app actually runs
 FROM node:16-alpine
 
+LABEL org.opencontainers.image.source="https://github.com/holzeis/heckle"
+
 # Create app directory
 WORKDIR /usr
 

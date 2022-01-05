@@ -12,6 +12,8 @@ RUN npm run build:prod
 
 FROM nginx:1.15.8-alpine
 
+LABEL org.opencontainers.image.source="https://github.com/holzeis/heckle"
+
 COPY --from=builder /usr/src/app/dist/client/ /usr/share/nginx/html
 
 # When the container starts, replace the env.js with values from environment variables

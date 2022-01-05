@@ -1,32 +1,68 @@
-name: publish
+name: Publish
 
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      version:
+        description: 'The version used to tag the images'     
         required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
+        default: 'latest'
 
-jobs:
-  printInputs:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - run: |
-        echo "Log level: ${{ github.event.inputs.logLevel }}"
-        echo "Tags: ${{ github.event.inputs.tags }}" 
-
-# jobs:
-#   publish-heckle-images:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - uses: actions/checkout@v2
-
-#     - name: Build the hello-world Docker image
-#       run: |
-#         echo $CR_PAT | docker login ghcr.io -u YourAccountOrGHOrgaNameHere --password-stdin
-#       env:
-#         CR_PAT: ${{ secrets.CR_PAT }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Prepare-Server
+        id: prepare-server
+        run: |
+          DOCKER_IMAGE=ghcr.io/holzeis/heckle-server
+          DOCKER_PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386
+          VERSION={{ github.event.inputs.version }}
+          TAGS="--tag ${DOCKER_IMAGE}:${VERSION}"
+          echo ::set-output name=docker_image::${DOCKER_IMAGE}
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=buildx_args::--platform ${DOCKER_PLATFORMS} \
+            ${TAGS} server
+      - name: Prepare-UI
+        id: prepare-server
+        run: |
+          DOCKER_IMAGE=ghcr.io/holzeis/heckle-ui
+          DOCKER_PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386
+          VERSION={{ github.event.inputs.version }}
+          TAGS="--tag ${DOCKER_IMAGE}:${VERSION}"
+          echo ::set-output name=docker_image::${DOCKER_IMAGE}
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=buildx_args::--platform ${DOCKER_PLATFORMS} \
+            ${TAGS} client
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+      - name: Docker Buildx (build) Server
+        run: |
+          docker buildx build --no-cache --pull --output "type=image,push=false" ${{ steps.prepare-server.outputs.buildx_args }}
+      - name: Docker Buildx (build) UI
+        run: |
+          docker buildx build --no-cache --pull --output "type=image,push=false" ${{ steps.prepare-ui.outputs.buildx_args }}
+      - name: Docker Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_PASSWORD }}
+      - name: Docker Buildx (push)
+        run: |
+          docker buildx build --output "type=image,push=true" ${{ steps.prepare-server.outputs.buildx_args }}
+          docker buildx build --output "type=image,push=true" ${{ steps.prepare-ui.outputs.buildx_args }}
+      - name: Clear
+        if: always()
+        run: |
+          rm -f ${HOME}/.docker/config.json
