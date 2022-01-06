@@ -46,4 +46,4 @@ See [couchdb chart](https://github.com/apache/couchdb-helm/tree/main/couchdb#con
 
 ## Configuration Values
 
-see [heckle chart values](charts/heckle/values.yaml) for default values.
+See [heckle chart values](charts/heckle/values.yaml) for default values.
