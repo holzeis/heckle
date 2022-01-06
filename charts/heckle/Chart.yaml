@@ -1,6 +1,9 @@
 apiVersion: v2
 name: heckle
-description: A Helm chart for Kubernetes
+description: A Helm chart for Heckle
+maintainers:
+  - email: richard@holzeis.me
+    name: Richard Holzeis
 
 # A chart can be either an 'application' or a 'library' chart.
 #
