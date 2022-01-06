@@ -39,17 +39,23 @@ spec:
               containerPort: {{ .Values.server.service.websocket.port }}
           env:
             - name: COUCHDB_ADMIN_USER
-              value: {{ .Values.server.couchdb.adminUsername | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "heckle.fullname" . }}-couchdb
+                  key: adminUsername
             - name: COUCHDB_ADMIN_PASSWORD
-              value: {{ .Values.server.couchdb.adminPassword | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "heckle.fullname" . }}-couchdb
+                  key: adminPassword
             - name: COUCHDB_ENDPOINT
-              value: {{ .Values.server.couchdb.endpoint | quote }}
+              value: {{ include "heckle.fullname" . }}-couchdb
             - name: COUCHDB_PORT
-              value: {{ .Values.server.couchdb.port | quote  }}
+              value: {{ .Values.couchdb.service.externalPort | quote }}
             - name: API_PORT
-              value: {{ .Values.server.service.api.port | quote  }}
+              value: {{ .Values.server.service.api.port | quote }}
             - name: WEBSOCKET_PORT
-              value: {{ .Values.server.service.websocket.port | quote  }}
+              value: {{ .Values.server.service.websocket.port | quote }}
             - name: JSON_WEBTOKEN_SECRET
               valueFrom:
                 secretKeyRef:
