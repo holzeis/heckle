@@ -44,60 +44,6 @@ Heckle stores talks and heckles into a couchdb which is defined as dependency to
 See [couchdb chart](https://github.com/apache/couchdb-helm/tree/main/couchdb#configuration) for configuration details.
 
 
-## Complete Configuration Values
+## Configuration Values
 
-| Key | Default | Description |
-|-----|---------|-------------|
-| affinity | `{}` |  |
-| couchdb.adminUsername | `"admin"` |  |
-| couchdb.clusterSize | `1` |  |
-| couchdb.couchdbConfig.couchdb.uuid | `"5a1b1c8d8a414330bd6b7f96e5c61103"` |  |
-| couchdb.persistentVolume.accessModes[0] | `"ReadWriteOnce"` |  |
-| couchdb.persistentVolume.enabled | `true` |  |
-| couchdb.persistentVolume.size | `"1Gi"` |  |
-| couchdb.resources | `{}` |  |
-| fullnameOverride | `""` |  |
-| host | `"heckle.example.com"` | The ingress host of the heckle application |
-| imagePullSecrets | list | `[]` |  |
-| ingress.annotations | `nil` |  |
-| ingress.apiPath | `"/api/v1"` |  |
-| ingress.enabled | `false` |  |
-| ingress.labels | `{}` |  |
-| ingress.tls[0].hosts[0] | `"heckle.example.com"` |  |
-| ingress.tls[0].secretName | `"heckle-tls"` |  |
-| ingress.uiPath | `"/"` | The ingress path of the heckle ui. |
-| ingress.websocketPath | `"/ws"` | The ingress path of the heckle websocket. |
-| nameOverride | `""` |  |
-| nodeSelector | `{}` |  |
-| podAnnotations | `{}` |  |
-| podSecurityContext | `{}` |  |
-| securityContext | `{}` |  |
-| server.autoscaling.enabled | `false` |  |
-| server.autoscaling.maxReplicas | `5` |  |
-| server.autoscaling.minReplicas | `1` |  |
-| server.autoscaling.targetCPUUtilizationPercentage | `80` |  |
-| server.autoscaling.targetMemoryUtilizationPercentage | `80` |  |
-| server.image.pullPolicy | `"IfNotPresent"` |  |
-| server.image.repository | `"ghcr.io/holzeis/heckle-server"` |  |
-| server.image.tag | `"0.1.0"` |  |
-| server.replicaCount | `1` |  |
-| server.resources | `{}` |  |
-| server.service.api.port | `3000` |  |
-| server.service.type | `"ClusterIP"` |  |
-| server.service.websocket.port | `2000` |  |
-| tolerations | list | `[]` |  |
-| ui.autoscaling.enabled | `false` |  |
-| ui.autoscaling.maxReplicas | `5` |  |
-| ui.autoscaling.minReplicas | `1` |  |
-| ui.autoscaling.targetCPUUtilizationPercentage | `80` |  |
-| ui.autoscaling.targetMemoryUtilizationPercentage | `80` |  |
-| ui.enabled | `true` |  |
-| ui.image.pullPolicy | `"IfNotPresent"` |  |
-| ui.image.repository | `"ghcr.io/holzeis/heckle-ui"` |  |
-| ui.image.tag | `"0.1.0"` |  |
-| ui.replicaCount | `1` |  |
-| ui.resources | `{}` |  |
-| ui.service.port | `80` |  |
-| ui.service.type | `"ClusterIP"` |  |
-| vapid.privateKey | `nil` |  |
-| vapid.publicKey | `nil` |  |
+see [heckle chart values](charts/heckle/values.yaml) for default values.
