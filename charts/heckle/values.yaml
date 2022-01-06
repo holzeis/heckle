@@ -25,12 +25,6 @@ server:
 
     api:
       port: 3000
-
-  couchdb:
-    adminUsername: admin
-    adminPassword: C3aTxMHSSCxWD3wQQUkO
-    endpoint: couchdb-couchdb
-    port: 5984
   
   resources: {}
     # limits:
@@ -107,3 +101,25 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+couchdb:
+  adminUsername: admin
+  clusterSize: 1
+
+  persistentVolume:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 1Gi
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 256m
+      memory: 256Mi
+
+  couchdbConfig:
+    couchdb:
+      uuid: "5a1b1c8d8a414330bd6b7f96e5c61103" # Unique identifier for this CouchDB server instance

@@ -5,11 +5,8 @@ A sample project for a progressive web application - see more on the [architectu
 ## tl;dr
 
 ```bash
-helm repo add couchdb https://apache.github.io/couchdb-helm
-helm install couchdb -n heckle couchdb/couchdb -f chart/couchdb/values.yaml --create-namespace
-
-helm repo add holzeis https://holzeis.github.io/helm-charts
-helm install heckle -n heckle holzeis/heckle -f values.yaml # create your own values.yaml
+helm repo add heckle https://holzeis.github.io/heckle
+helm install heckle -n heckle heckle/heckle -f values.yaml --create-namespace # create your own values.yaml
 ```
 
 ## Web Push
