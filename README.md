@@ -46,58 +46,58 @@ See [couchdb chart](https://github.com/apache/couchdb-helm/tree/main/couchdb#con
 
 ## Complete Configuration Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| couchdb.adminUsername | string | `"admin"` |  |
-| couchdb.clusterSize | int | `1` |  |
-| couchdb.couchdbConfig.couchdb.uuid | string | `"5a1b1c8d8a414330bd6b7f96e5c61103"` |  |
-| couchdb.persistentVolume.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| couchdb.persistentVolume.enabled | bool | `true` |  |
-| couchdb.persistentVolume.size | string | `"1Gi"` |  |
-| couchdb.resources | object | `{}` |  |
-| fullnameOverride | string | `""` |  |
-| host | string | `"heckle.example.com"` | The ingress host of the heckle application |
+| Key | Default | Description |
+|-----|---------|-------------|
+| affinity | `{}` |  |
+| couchdb.adminUsername | `"admin"` |  |
+| couchdb.clusterSize | `1` |  |
+| couchdb.couchdbConfig.couchdb.uuid | `"5a1b1c8d8a414330bd6b7f96e5c61103"` |  |
+| couchdb.persistentVolume.accessModes[0] | `"ReadWriteOnce"` |  |
+| couchdb.persistentVolume.enabled | `true` |  |
+| couchdb.persistentVolume.size | `"1Gi"` |  |
+| couchdb.resources | `{}` |  |
+| fullnameOverride | `""` |  |
+| host | `"heckle.example.com"` | The ingress host of the heckle application |
 | imagePullSecrets | list | `[]` |  |
-| ingress.annotations | string | `nil` |  |
-| ingress.apiPath | string | `"/api/v1"` |  |
-| ingress.enabled | bool | `false` |  |
-| ingress.labels | object | `{}` |  |
-| ingress.tls[0].hosts[0] | string | `"heckle.example.com"` |  |
-| ingress.tls[0].secretName | string | `"heckle-tls"` |  |
-| ingress.uiPath | string | `"/"` | The ingress path of the heckle ui. |
-| ingress.websocketPath | string | `"/ws"` | The ingress path of the heckle websocket. |
-| nameOverride | string | `""` |  |
-| nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
-| securityContext | object | `{}` |  |
-| server.autoscaling.enabled | bool | `false` |  |
-| server.autoscaling.maxReplicas | int | `5` |  |
-| server.autoscaling.minReplicas | int | `1` |  |
-| server.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| server.autoscaling.targetMemoryUtilizationPercentage | int | `80` |  |
-| server.image.pullPolicy | string | `"IfNotPresent"` |  |
-| server.image.repository | string | `"ghcr.io/holzeis/heckle-server"` |  |
-| server.image.tag | string | `"0.1.0"` |  |
-| server.replicaCount | int | `1` |  |
-| server.resources | object | `{}` |  |
-| server.service.api.port | int | `3000` |  |
-| server.service.type | string | `"ClusterIP"` |  |
-| server.service.websocket.port | int | `2000` |  |
+| ingress.annotations | `nil` |  |
+| ingress.apiPath | `"/api/v1"` |  |
+| ingress.enabled | `false` |  |
+| ingress.labels | `{}` |  |
+| ingress.tls[0].hosts[0] | `"heckle.example.com"` |  |
+| ingress.tls[0].secretName | `"heckle-tls"` |  |
+| ingress.uiPath | `"/"` | The ingress path of the heckle ui. |
+| ingress.websocketPath | `"/ws"` | The ingress path of the heckle websocket. |
+| nameOverride | `""` |  |
+| nodeSelector | `{}` |  |
+| podAnnotations | `{}` |  |
+| podSecurityContext | `{}` |  |
+| securityContext | `{}` |  |
+| server.autoscaling.enabled | `false` |  |
+| server.autoscaling.maxReplicas | `5` |  |
+| server.autoscaling.minReplicas | `1` |  |
+| server.autoscaling.targetCPUUtilizationPercentage | `80` |  |
+| server.autoscaling.targetMemoryUtilizationPercentage | `80` |  |
+| server.image.pullPolicy | `"IfNotPresent"` |  |
+| server.image.repository | `"ghcr.io/holzeis/heckle-server"` |  |
+| server.image.tag | `"0.1.0"` |  |
+| server.replicaCount | `1` |  |
+| server.resources | `{}` |  |
+| server.service.api.port | `3000` |  |
+| server.service.type | `"ClusterIP"` |  |
+| server.service.websocket.port | `2000` |  |
 | tolerations | list | `[]` |  |
-| ui.autoscaling.enabled | bool | `false` |  |
-| ui.autoscaling.maxReplicas | int | `5` |  |
-| ui.autoscaling.minReplicas | int | `1` |  |
-| ui.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| ui.autoscaling.targetMemoryUtilizationPercentage | int | `80` |  |
-| ui.enabled | bool | `true` |  |
-| ui.image.pullPolicy | string | `"IfNotPresent"` |  |
-| ui.image.repository | string | `"ghcr.io/holzeis/heckle-ui"` |  |
-| ui.image.tag | string | `"0.1.0"` |  |
-| ui.replicaCount | int | `1` |  |
-| ui.resources | object | `{}` |  |
-| ui.service.port | int | `80` |  |
-| ui.service.type | string | `"ClusterIP"` |  |
-| vapid.privateKey | string | `nil` |  |
-| vapid.publicKey | string | `nil` |  |
+| ui.autoscaling.enabled | `false` |  |
+| ui.autoscaling.maxReplicas | `5` |  |
+| ui.autoscaling.minReplicas | `1` |  |
+| ui.autoscaling.targetCPUUtilizationPercentage | `80` |  |
+| ui.autoscaling.targetMemoryUtilizationPercentage | `80` |  |
+| ui.enabled | `true` |  |
+| ui.image.pullPolicy | `"IfNotPresent"` |  |
+| ui.image.repository | `"ghcr.io/holzeis/heckle-ui"` |  |
+| ui.image.tag | `"0.1.0"` |  |
+| ui.replicaCount | `1` |  |
+| ui.resources | `{}` |  |
+| ui.service.port | `80` |  |
+| ui.service.type | `"ClusterIP"` |  |
+| vapid.privateKey | `nil` |  |
+| vapid.publicKey | `nil` |  |
